@@ -10,15 +10,10 @@ public class Student extends Person {
     this.schoolName = schoolName;
     this.grade = grade;
   }
-  public Student(String schoolName, int grade) {
-    this.schoolName = schoolName;
-    this.grade = grade;
-  }
+
   public Student(String firstName, String lastName, int age) {
     super(firstName, lastName, age);
   }
-
-  public Student() {}
 
   public String getSchoolName() { return schoolName; }
 

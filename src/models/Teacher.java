@@ -10,16 +10,9 @@ public class Teacher extends Person {
     this.string2 = string2;
   }
 
-  public Teacher(String subject1, String string2) {
-    this.subject1 = subject1;
-    this.string2 = string2;
-  }
-
   public Teacher(String firstName, String lastName, int age) {
     super(firstName, lastName, age);
   }
-
-  public Teacher() {}
 
   public String getSubject1() { return subject1; }
 
