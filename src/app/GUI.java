@@ -23,67 +23,55 @@ public class GUI {
 
   private JTextField textField_editStudentName;
   private JLabel lbl_editStudentTitle, lbl_editStudentName,
-      lbl_editStudentGrade;
-  private JComboBox<Integer> comboBox_editStudentGrade;
+      lbl_editStudentGrade, lbl_editStudentAge;
+  private JComboBox<Integer> comboBox_editStudentAge, comboBox_editStudentGrade;
   private JButton btn_editStudentCancel, btn_editStudentSave;
 
-  private JTable table_viewStudents;
   private JLabel lbl_viewStudentsTitle;
+  private JTable table_viewStudents;
+
+  private JPanel panel_viewTeachers, panel_addTeacher, panel_editTeacher;
+
+  private JLabel lbl_addTeacherAge, lbl_addTeacherName, lbl_addTeacherTitle,
+      lbl_addTeacherSubject1, lbl_addTeacherSubject2;
+  private JButton btn_addTeacherSave, btn_addTeacherCancel;
   private JTextField textField_addTeacherName;
-  private JTable table_viewTeachers;
-  private JPanel panel_viewTeachers;
-  private JPanel panel_addTeacher;
-  private JLabel lbl_editStudentAge;
-  private JComboBox<Integer> comboBox_editStudentAge;
-  private JLabel lbl_addTeacherSubject1;
-  private JLabel lbl_addTeacherSubject2;
-  private JComboBox comboBox_addTeacherSubject1;
-  private JComboBox comboBox_addTeacherSubject2;
-  private JLabel lbl_addTeacherTitle;
-  private JLabel lbl_addTeacherName;
-  private JLabel lbl_addTeacherAge;
   private JComboBox<Integer> comboBox_addTeacherAge;
-  private JButton btn_addTeacherCancel;
-  private JButton btn_addTeacherSave;
-  private JPanel panel_editTeacher;
-  private JLabel lbl_editeacherTitle;
-  private JLabel lbl_editTeacherName;
-  private JLabel lbl_editTeacherAge;
+  private JComboBox<String> comboBox_addTeacherSubject1,
+      comboBox_addTeacherSubject2;
+
+  private JLabel lbl_editTeacherAge, lbl_editTeacherName,
+      lbl_editTeacherSubject1, lbl_editTeacherSubject2, lbl_editTeacherTitle;
+  private JButton btn_editTeacherSave, btn_editTeacherCancel;
   private JTextField textField_editTeacherName;
   private JComboBox<Integer> comboBox_editTeacherAge;
-  private JButton btn_editTeacherCancel;
-  private JButton btn_editTeacherSave;
-  private JLabel lbl_editTeacherSubject1;
-  private JLabel lbl_editTeacherSubject2;
-  private JComboBox<?> comboBox_editTeacherSubject1;
-  private JComboBox<?> comboBox_editTeacherSubject2;
-  private JPanel panel_addIntlStudent;
-  private JLabel lbl_addIntlStudentTitle;
-  private JLabel lbl_addIntlStudentName;
-  private JLabel lbl_addIntlStudentAge;
-  private JLabel lbl_addIntlStudentGrade;
+  private JComboBox<String> comboBox_editTeacherSubject1,
+      comboBox_editTeacherSubject2;
+
+  private JLabel lbl_viewTeachersTitle;
+  private JTable table_viewTeachers;
+
+  private JPanel panel_viewIntlStudents, panel_editIntlStudent,
+      panel_addIntlStudent;
+
+  private JLabel lbl_addIntlStudentAge, lbl_addIntlStudentName,
+      lbl_addIntlStudentTitle, lbl_addIntlStudentGrade,
+      lbl_addIntlStudentCountry;
+  private JButton btn_addIntlStudentSave, btn_addIntlStudentCancel;
   private JTextField textField_addIntlStudentName;
-  private JComboBox<Integer> comboBox_addIntlStudentAge;
-  private JComboBox<Integer> comboBox_addIntlStudentGrade;
-  private JButton btn_addIntlStudentCancel;
-  private JButton btn_addIntlStudentSave;
-  private JPanel panel_viewIntlStudents;
-  private JTable table_viewIntlStudents;
-  private JLabel lbl_viewIntlStudentsTitle;
-  private JLabel lbl_addIntlStudentCountry;
-  private JComboBox<Integer> comboBox_addIntlStudentCountry;
-  private JPanel panel_editIntlStudent;
-  private JLabel lbl_editIntlStudentTitle;
-  private JLabel lbl_editIntlStudentName;
-  private JLabel lbl_editIntlStudentAge;
-  private JLabel lbl_editIntlStudentGrade;
+  private JComboBox<Integer> comboBox_addIntlStudentAge,
+      comboBox_addIntlStudentGrade, comboBox_addIntlStudentCountry;
+
+  private JLabel lbl_editIntlStudentAge, lbl_editIntlStudentName,
+      lbl_editIntlStudentTitle, lbl_editIntlStudentGrade,
+      lbl_editIntlStudentCountry;
+  private JButton btn_editIntlStudentSave, btn_editIntlStudentCancel;
   private JTextField textField_editIntlStudentName;
-  private JComboBox<Integer> comboBox_editIntlStudentAge;
-  private JComboBox<Integer> comboBox_editIntlStudentGrade;
-  private JButton btn_editIntlStudentCancel;
-  private JButton btn_editIntlStudentSave;
-  private JLabel lbl_editIntlStudentCountry;
-  private JComboBox<Integer> comboBox_editIntlStudentCountry;
+  private JComboBox<Integer> comboBox_editIntlStudentAge,
+      comboBox_editIntlStudentGrade, comboBox_editIntlStudentCountry;
+
+  private JLabel lbl_viewIntlStudentsTitle;
+  private JTable table_viewIntlStudents;
 
   public GUI() {
     initialize();
@@ -171,11 +159,11 @@ public class GUI {
     btn_editStudentSave = new JButton("Save");
     btn_editStudentSave.setBounds(223, 231, 105, 27);
     panel_editStudent.add(btn_editStudentSave);
-    
+
     lbl_editStudentAge = new JLabel("Age:");
     lbl_editStudentAge.setBounds(12, 114, 107, 17);
     panel_editStudent.add(lbl_editStudentAge);
-    
+
     comboBox_editStudentAge = new JComboBox<Integer>();
     comboBox_editStudentAge.setBounds(62, 109, 31, 26);
     panel_editStudent.add(comboBox_editStudentAge);
@@ -191,223 +179,223 @@ public class GUI {
     lbl_viewStudentsTitle = new JLabel("All Students");
     lbl_viewStudentsTitle.setBounds(188, 12, 84, 17);
     panel_viewStudents.add(lbl_viewStudentsTitle);
-    
+
     panel_addTeacher = new JPanel();
     panel_addTeacher.setLayout(null);
     frame.getContentPane().add(panel_addTeacher, "name_1974028917161");
-    
+
     lbl_addTeacherTitle = new JLabel("Create Teacher");
     lbl_addTeacherTitle.setBounds(174, 12, 107, 17);
     panel_addTeacher.add(lbl_addTeacherTitle);
-    
+
     lbl_addTeacherName = new JLabel("Name:");
     lbl_addTeacherName.setBounds(12, 48, 107, 17);
     panel_addTeacher.add(lbl_addTeacherName);
-    
+
     lbl_addTeacherAge = new JLabel("Age:");
     lbl_addTeacherAge.setBounds(12, 91, 107, 17);
     panel_addTeacher.add(lbl_addTeacherAge);
-    
+
     textField_addTeacherName = new JTextField();
     textField_addTeacherName.setColumns(10);
     textField_addTeacherName.setBounds(62, 46, 114, 21);
     panel_addTeacher.add(textField_addTeacherName);
-    
+
     comboBox_addTeacherAge = new JComboBox<Integer>();
     comboBox_addTeacherAge.setBounds(62, 86, 31, 26);
     panel_addTeacher.add(comboBox_addTeacherAge);
-    
+
     btn_addTeacherCancel = new JButton("Cancel");
     btn_addTeacherCancel.setBounds(106, 231, 105, 27);
     panel_addTeacher.add(btn_addTeacherCancel);
-    
+
     btn_addTeacherSave = new JButton("Save");
     btn_addTeacherSave.setBounds(223, 231, 105, 27);
     panel_addTeacher.add(btn_addTeacherSave);
-    
+
     lbl_addTeacherSubject1 = new JLabel("Subject 1:");
     lbl_addTeacherSubject1.setBounds(12, 141, 81, 17);
     panel_addTeacher.add(lbl_addTeacherSubject1);
-    
+
     lbl_addTeacherSubject2 = new JLabel("Subject 2:");
     lbl_addTeacherSubject2.setBounds(12, 184, 81, 17);
     panel_addTeacher.add(lbl_addTeacherSubject2);
-    
-    comboBox_addTeacherSubject1 = new JComboBox();
+
+    comboBox_addTeacherSubject1 = new JComboBox<String>();
     comboBox_addTeacherSubject1.setBounds(88, 136, 31, 26);
     panel_addTeacher.add(comboBox_addTeacherSubject1);
-    
-    comboBox_addTeacherSubject2 = new JComboBox();
+
+    comboBox_addTeacherSubject2 = new JComboBox<String>();
     comboBox_addTeacherSubject2.setBounds(88, 179, 31, 26);
     panel_addTeacher.add(comboBox_addTeacherSubject2);
-    
+
     panel_viewTeachers = new JPanel();
     panel_viewTeachers.setLayout(null);
     frame.getContentPane().add(panel_viewTeachers, "name_2076682974155");
-    
+
     table_viewTeachers = new JTable();
     table_viewTeachers.setBounds(0, 34, 440, 224);
     panel_viewTeachers.add(table_viewTeachers);
-    
-    JLabel lbl_viewTeachersTitle = new JLabel("All Teacher");
+
+    lbl_viewTeachersTitle = new JLabel("All Teacher");
     lbl_viewTeachersTitle.setBounds(188, 12, 84, 17);
     panel_viewTeachers.add(lbl_viewTeachersTitle);
-    
+
     panel_editTeacher = new JPanel();
     panel_editTeacher.setLayout(null);
     frame.getContentPane().add(panel_editTeacher, "name_2810509183947");
-    
-    lbl_editeacherTitle = new JLabel("Edit Teacher");
-    lbl_editeacherTitle.setBounds(174, 12, 107, 17);
-    panel_editTeacher.add(lbl_editeacherTitle);
-    
+
+    lbl_editTeacherTitle = new JLabel("Edit Teacher");
+    lbl_editTeacherTitle.setBounds(174, 12, 107, 17);
+    panel_editTeacher.add(lbl_editTeacherTitle);
+
     lbl_editTeacherName = new JLabel("Name:");
     lbl_editTeacherName.setBounds(12, 48, 107, 17);
     panel_editTeacher.add(lbl_editTeacherName);
-    
+
     lbl_editTeacherAge = new JLabel("Age:");
     lbl_editTeacherAge.setBounds(12, 91, 107, 17);
     panel_editTeacher.add(lbl_editTeacherAge);
-    
+
     textField_editTeacherName = new JTextField();
     textField_editTeacherName.setColumns(10);
     textField_editTeacherName.setBounds(62, 46, 114, 21);
     panel_editTeacher.add(textField_editTeacherName);
-    
+
     comboBox_editTeacherAge = new JComboBox<Integer>();
     comboBox_editTeacherAge.setBounds(62, 86, 31, 26);
     panel_editTeacher.add(comboBox_editTeacherAge);
-    
+
     btn_editTeacherCancel = new JButton("Cancel");
     btn_editTeacherCancel.setBounds(106, 231, 105, 27);
     panel_editTeacher.add(btn_editTeacherCancel);
-    
+
     btn_editTeacherSave = new JButton("Save");
     btn_editTeacherSave.setBounds(223, 231, 105, 27);
     panel_editTeacher.add(btn_editTeacherSave);
-    
+
     lbl_editTeacherSubject1 = new JLabel("Subject 1:");
     lbl_editTeacherSubject1.setBounds(12, 141, 81, 17);
     panel_editTeacher.add(lbl_editTeacherSubject1);
-    
+
     lbl_editTeacherSubject2 = new JLabel("Subject 2:");
     lbl_editTeacherSubject2.setBounds(12, 184, 81, 17);
     panel_editTeacher.add(lbl_editTeacherSubject2);
-    
-    comboBox_editTeacherSubject1 = new JComboBox();
+
+    comboBox_editTeacherSubject1 = new JComboBox<String>();
     comboBox_editTeacherSubject1.setBounds(88, 136, 31, 26);
     panel_editTeacher.add(comboBox_editTeacherSubject1);
-    
-    comboBox_editTeacherSubject2 = new JComboBox();
+
+    comboBox_editTeacherSubject2 = new JComboBox<String>();
     comboBox_editTeacherSubject2.setBounds(88, 179, 31, 26);
     panel_editTeacher.add(comboBox_editTeacherSubject2);
-    
+
     panel_addIntlStudent = new JPanel();
     panel_addIntlStudent.setLayout(null);
     frame.getContentPane().add(panel_addIntlStudent, "name_3023881280242");
-    
+
     lbl_addIntlStudentTitle = new JLabel("Create International Student");
     lbl_addIntlStudentTitle.setBounds(137, 12, 179, 17);
     panel_addIntlStudent.add(lbl_addIntlStudentTitle);
-    
+
     lbl_addIntlStudentName = new JLabel("Name:");
     lbl_addIntlStudentName.setBounds(12, 48, 107, 17);
     panel_addIntlStudent.add(lbl_addIntlStudentName);
-    
+
     lbl_addIntlStudentAge = new JLabel("Age:");
     lbl_addIntlStudentAge.setBounds(12, 95, 107, 17);
     panel_addIntlStudent.add(lbl_addIntlStudentAge);
-    
+
     lbl_addIntlStudentGrade = new JLabel("Grade:");
     lbl_addIntlStudentGrade.setBounds(12, 138, 107, 17);
     panel_addIntlStudent.add(lbl_addIntlStudentGrade);
-    
+
     textField_addIntlStudentName = new JTextField();
     textField_addIntlStudentName.setColumns(10);
     textField_addIntlStudentName.setBounds(62, 46, 114, 21);
     panel_addIntlStudent.add(textField_addIntlStudentName);
-    
+
     comboBox_addIntlStudentAge = new JComboBox<Integer>();
     comboBox_addIntlStudentAge.setBounds(62, 90, 31, 26);
     panel_addIntlStudent.add(comboBox_addIntlStudentAge);
-    
+
     comboBox_addIntlStudentGrade = new JComboBox<Integer>();
     comboBox_addIntlStudentGrade.setBounds(62, 133, 31, 26);
     panel_addIntlStudent.add(comboBox_addIntlStudentGrade);
-    
+
     btn_addIntlStudentCancel = new JButton("Cancel");
     btn_addIntlStudentCancel.setBounds(106, 231, 105, 27);
     panel_addIntlStudent.add(btn_addIntlStudentCancel);
-    
+
     btn_addIntlStudentSave = new JButton("Save");
     btn_addIntlStudentSave.setBounds(223, 231, 105, 27);
     panel_addIntlStudent.add(btn_addIntlStudentSave);
-    
+
     lbl_addIntlStudentCountry = new JLabel("Country:");
     lbl_addIntlStudentCountry.setBounds(12, 182, 60, 17);
     panel_addIntlStudent.add(lbl_addIntlStudentCountry);
-    
+
     comboBox_addIntlStudentCountry = new JComboBox<Integer>();
     comboBox_addIntlStudentCountry.setBounds(72, 177, 31, 26);
     panel_addIntlStudent.add(comboBox_addIntlStudentCountry);
-    
+
     panel_viewIntlStudents = new JPanel();
     panel_viewIntlStudents.setLayout(null);
     frame.getContentPane().add(panel_viewIntlStudents, "name_3024962085836");
-    
+
     table_viewIntlStudents = new JTable();
     table_viewIntlStudents.setBounds(0, 34, 440, 224);
     panel_viewIntlStudents.add(table_viewIntlStudents);
-    
+
     lbl_viewIntlStudentsTitle = new JLabel("All International Students");
     lbl_viewIntlStudentsTitle.setBounds(139, 12, 170, 17);
     panel_viewIntlStudents.add(lbl_viewIntlStudentsTitle);
-    
+
     panel_editIntlStudent = new JPanel();
     panel_editIntlStudent.setLayout(null);
     frame.getContentPane().add(panel_editIntlStudent, "name_3350108683546");
-    
+
     lbl_editIntlStudentTitle = new JLabel("Edit International Student");
     lbl_editIntlStudentTitle.setBounds(137, 12, 179, 17);
     panel_editIntlStudent.add(lbl_editIntlStudentTitle);
-    
+
     lbl_editIntlStudentName = new JLabel("Name:");
     lbl_editIntlStudentName.setBounds(12, 48, 107, 17);
     panel_editIntlStudent.add(lbl_editIntlStudentName);
-    
+
     lbl_editIntlStudentAge = new JLabel("Age:");
     lbl_editIntlStudentAge.setBounds(12, 95, 107, 17);
     panel_editIntlStudent.add(lbl_editIntlStudentAge);
-    
+
     lbl_editIntlStudentGrade = new JLabel("Grade:");
     lbl_editIntlStudentGrade.setBounds(12, 138, 107, 17);
     panel_editIntlStudent.add(lbl_editIntlStudentGrade);
-    
+
     textField_editIntlStudentName = new JTextField();
     textField_editIntlStudentName.setColumns(10);
     textField_editIntlStudentName.setBounds(62, 46, 114, 21);
     panel_editIntlStudent.add(textField_editIntlStudentName);
-    
+
     comboBox_editIntlStudentAge = new JComboBox<Integer>();
     comboBox_editIntlStudentAge.setBounds(62, 90, 31, 26);
     panel_editIntlStudent.add(comboBox_editIntlStudentAge);
-    
+
     comboBox_editIntlStudentGrade = new JComboBox<Integer>();
     comboBox_editIntlStudentGrade.setBounds(62, 133, 31, 26);
     panel_editIntlStudent.add(comboBox_editIntlStudentGrade);
-    
+
     btn_editIntlStudentCancel = new JButton("Cancel");
     btn_editIntlStudentCancel.setBounds(106, 231, 105, 27);
     panel_editIntlStudent.add(btn_editIntlStudentCancel);
-    
+
     btn_editIntlStudentSave = new JButton("Save");
     btn_editIntlStudentSave.setBounds(223, 231, 105, 27);
     panel_editIntlStudent.add(btn_editIntlStudentSave);
-    
+
     lbl_editIntlStudentCountry = new JLabel("Country:");
     lbl_editIntlStudentCountry.setBounds(12, 182, 60, 17);
     panel_editIntlStudent.add(lbl_editIntlStudentCountry);
-    
+
     comboBox_editIntlStudentCountry = new JComboBox<Integer>();
     comboBox_editIntlStudentCountry.setBounds(72, 177, 31, 26);
     panel_editIntlStudent.add(comboBox_editIntlStudentCountry);
