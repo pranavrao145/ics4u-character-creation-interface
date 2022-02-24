@@ -1,6 +1,7 @@
 package app;
 
 import java.awt.CardLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -56,26 +57,45 @@ public class GUI {
       lbl_addIntlStudentGrade, lbl_addIntlStudentCountry;
   private JButton btn_addIntlStudentSave, btn_addIntlStudentCancel;
   private JTextField textField_addIntlStudentName;
-  private JComboBox<Integer> comboBox_addIntlStudentGrade,
-      comboBox_addIntlStudentCountry;
+  private JComboBox<Integer> comboBox_addIntlStudentGrade;
+  private JComboBox<String> comboBox_addIntlStudentCountry;
 
   private JLabel lbl_editIntlStudentTitle, lbl_editIntlStudentName,
       lbl_editIntlStudentGrade, lbl_editIntlStudentCountry;
   private JTextField textField_editIntlStudentName;
   private JButton btn_editIntlStudentCancel, btn_editIntlStudentSave;
-  private JComboBox<Integer> comboBox_editIntlStudentGrade,
-      comboBox_editIntlStudentCountry;
+  private JComboBox<Integer> comboBox_editIntlStudentGrade;
+  private JComboBox<String> comboBox_editIntlStudentCountry;
 
   private JLabel lbl_viewIntlStudentsTitle;
   private JTable table_viewIntlStudents;
 
+  DefaultComboBoxModel<String> subjectOptions;
+  DefaultComboBoxModel<Integer> gradeOptions;
+  DefaultComboBoxModel<String> countryOptions;
+
   public GUI() {
-    initialize();
-    masterLayout.show(frame.getContentPane(), "panel_editTeacher");
+    initializeValues();
+    setupGUI();
     attachListeners();
   }
 
-  private void initialize() {
+  private void initializeValues() {
+    subjectOptions = new DefaultComboBoxModel<String>(
+        new String[] {"Math", "Business", "Computer Science", "English",
+                      "Phys Ed", "Science"});
+
+    gradeOptions =
+        new DefaultComboBoxModel<Integer>(new Integer[] {9, 10, 11, 12});
+
+    countryOptions = new DefaultComboBoxModel<String>(new String[] {
+        "India", "China", "Russia", "United Kingdom", "France", "Germany",
+        "South Africa", "Argentina", "Brazil", "United States of America"
+
+    });
+  }
+
+  private void setupGUI() {
     frame = new JFrame();
     masterLayout = new CardLayout();
 
@@ -105,8 +125,8 @@ public class GUI {
     textField_editStudentName.setBounds(62, 63, 114, 21);
     panel_editStudent.add(textField_editStudentName);
 
-    comboBox_editStudentGrade = new JComboBox<Integer>();
-    comboBox_editStudentGrade.setBounds(62, 144, 31, 26);
+    comboBox_editStudentGrade = new JComboBox<Integer>(gradeOptions);
+    comboBox_editStudentGrade.setBounds(62, 144, 57, 26);
     panel_editStudent.add(comboBox_editStudentGrade);
 
     btn_editStudentCancel = new JButton("Cancel");
@@ -162,12 +182,12 @@ public class GUI {
     lbl_addTeacherSubject2.setBounds(12, 176, 81, 17);
     panel_addTeacher.add(lbl_addTeacherSubject2);
 
-    comboBox_addTeacherSubject1 = new JComboBox<String>();
-    comboBox_addTeacherSubject1.setBounds(88, 107, 31, 26);
+    comboBox_addTeacherSubject1 = new JComboBox<String>(subjectOptions);
+    comboBox_addTeacherSubject1.setBounds(88, 107, 107, 26);
     panel_addTeacher.add(comboBox_addTeacherSubject1);
 
-    comboBox_addTeacherSubject2 = new JComboBox<String>();
-    comboBox_addTeacherSubject2.setBounds(88, 171, 31, 26);
+    comboBox_addTeacherSubject2 = new JComboBox<String>(subjectOptions);
+    comboBox_addTeacherSubject2.setBounds(88, 171, 107, 26);
     panel_addTeacher.add(comboBox_addTeacherSubject2);
 
     panel_viewTeachers = new JPanel();
@@ -203,8 +223,8 @@ public class GUI {
     textField_addIntlStudentName.setBounds(62, 46, 114, 21);
     panel_addIntlStudent.add(textField_addIntlStudentName);
 
-    comboBox_addIntlStudentGrade = new JComboBox<Integer>();
-    comboBox_addIntlStudentGrade.setBounds(62, 108, 31, 26);
+    comboBox_addIntlStudentGrade = new JComboBox<Integer>(gradeOptions);
+    comboBox_addIntlStudentGrade.setBounds(62, 108, 57, 26);
     panel_addIntlStudent.add(comboBox_addIntlStudentGrade);
 
     btn_addIntlStudentCancel = new JButton("Cancel");
@@ -219,8 +239,8 @@ public class GUI {
     lbl_addIntlStudentCountry.setBounds(12, 175, 60, 17);
     panel_addIntlStudent.add(lbl_addIntlStudentCountry);
 
-    comboBox_addIntlStudentCountry = new JComboBox<Integer>();
-    comboBox_addIntlStudentCountry.setBounds(72, 170, 31, 26);
+    comboBox_addIntlStudentCountry = new JComboBox<String>(countryOptions);
+    comboBox_addIntlStudentCountry.setBounds(72, 170, 104, 26);
     panel_addIntlStudent.add(comboBox_addIntlStudentCountry);
 
     panel_viewIntlStudents = new JPanel();
@@ -257,8 +277,8 @@ public class GUI {
     textField_addStudentName.setBounds(62, 63, 114, 21);
     panel_addStudent.add(textField_addStudentName);
 
-    comboBox_addStudentGrade = new JComboBox<Integer>();
-    comboBox_addStudentGrade.setBounds(62, 144, 31, 26);
+    comboBox_addStudentGrade = new JComboBox<Integer>(gradeOptions);
+    comboBox_addStudentGrade.setBounds(62, 144, 57, 26);
     panel_addStudent.add(comboBox_addStudentGrade);
 
     btn_addStudentCancel = new JButton("Cancel");
@@ -302,12 +322,12 @@ public class GUI {
     lbl_editTeacherSubject2.setBounds(12, 176, 81, 17);
     panel_editTeacher.add(lbl_editTeacherSubject2);
 
-    comboBox_editTeacherSubject1 = new JComboBox<String>();
-    comboBox_editTeacherSubject1.setBounds(88, 107, 31, 26);
+    comboBox_editTeacherSubject1 = new JComboBox<String>(subjectOptions);
+    comboBox_editTeacherSubject1.setBounds(88, 107, 107, 26);
     panel_editTeacher.add(comboBox_editTeacherSubject1);
 
-    comboBox_editTeacherSubject2 = new JComboBox<String>();
-    comboBox_editTeacherSubject2.setBounds(88, 171, 31, 26);
+    comboBox_editTeacherSubject2 = new JComboBox<String>(subjectOptions);
+    comboBox_editTeacherSubject2.setBounds(88, 171, 107, 26);
     panel_editTeacher.add(comboBox_editTeacherSubject2);
 
     panel_editIntlStudent = new JPanel();
@@ -331,8 +351,8 @@ public class GUI {
     textField_editIntlStudentName.setBounds(62, 46, 114, 21);
     panel_editIntlStudent.add(textField_editIntlStudentName);
 
-    comboBox_editIntlStudentGrade = new JComboBox<Integer>();
-    comboBox_editIntlStudentGrade.setBounds(62, 108, 31, 26);
+    comboBox_editIntlStudentGrade = new JComboBox<Integer>(gradeOptions);
+    comboBox_editIntlStudentGrade.setBounds(62, 108, 57, 26);
     panel_editIntlStudent.add(comboBox_editIntlStudentGrade);
 
     btn_editIntlStudentCancel = new JButton("Cancel");
@@ -347,8 +367,8 @@ public class GUI {
     lbl_editIntlStudentCountry.setBounds(12, 175, 60, 17);
     panel_editIntlStudent.add(lbl_editIntlStudentCountry);
 
-    comboBox_editIntlStudentCountry = new JComboBox<Integer>();
-    comboBox_editIntlStudentCountry.setBounds(72, 170, 31, 26);
+    comboBox_editIntlStudentCountry = new JComboBox<String>(countryOptions);
+    comboBox_editIntlStudentCountry.setBounds(72, 170, 104, 26);
     panel_editIntlStudent.add(comboBox_editIntlStudentCountry);
   }
 
