@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 public class GUI {
 
   private JFrame frame;
+  private CardLayout masterLayout;
 
   private JPanel panel_addStudent, panel_editStudent, panel_viewStudents;
 
@@ -70,15 +71,18 @@ public class GUI {
 
   public GUI() {
     initialize();
+    masterLayout.show(frame.getContentPane(), "panel_editTeacher");
     attachListeners();
   }
 
   private void initialize() {
     frame = new JFrame();
+    masterLayout = new CardLayout();
+
     frame.setResizable(false);
     frame.setBounds(100, 100, 450, 300);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.getContentPane().setLayout(new CardLayout(0, 0));
+    frame.getContentPane().setLayout(masterLayout);
 
     panel_editStudent = new JPanel();
     frame.getContentPane().add(panel_editStudent, "panel_edit");
@@ -174,7 +178,7 @@ public class GUI {
     table_viewTeachers.setBounds(0, 34, 440, 224);
     panel_viewTeachers.add(table_viewTeachers);
 
-    lbl_viewTeachersTitle = new JLabel("All Teacher");
+    lbl_viewTeachersTitle = new JLabel("All Teachers");
     lbl_viewTeachersTitle.setBounds(188, 12, 84, 17);
     panel_viewTeachers.add(lbl_viewTeachersTitle);
 
@@ -234,7 +238,7 @@ public class GUI {
 
     panel_addStudent = new JPanel();
     panel_addStudent.setLayout(null);
-    frame.getContentPane().add(panel_addStudent, "name_4427595927615");
+    frame.getContentPane().add(panel_addStudent, "panel_addStudent");
 
     lbl_addStudentTitle = new JLabel("Create Student");
     lbl_addStudentTitle.setBounds(174, 12, 107, 17);
@@ -267,7 +271,7 @@ public class GUI {
 
     panel_editTeacher = new JPanel();
     panel_editTeacher.setLayout(null);
-    frame.getContentPane().add(panel_editTeacher, "name_4827329802341");
+    frame.getContentPane().add(panel_editTeacher, "panel_editTeacher");
 
     lbl_editTeacherTitle = new JLabel("Edit Teacher");
     lbl_editTeacherTitle.setBounds(174, 12, 107, 17);
@@ -308,7 +312,7 @@ public class GUI {
 
     panel_editIntlStudent = new JPanel();
     panel_editIntlStudent.setLayout(null);
-    frame.getContentPane().add(panel_editIntlStudent, "name_4981720747353");
+    frame.getContentPane().add(panel_editIntlStudent, "panel_editIntlStudent");
 
     lbl_editIntlStudentTitle = new JLabel("Create International Student");
     lbl_editIntlStudentTitle.setBounds(137, 12, 179, 17);
