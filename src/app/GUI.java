@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 
 public class GUI {
   private JFrame frame;
@@ -105,6 +106,7 @@ public class GUI {
     initializeValues();
     setupGUI();
     attachListeners();
+    frame.setVisible(true);
   }
 
   private void initializeValues() {
@@ -122,6 +124,27 @@ public class GUI {
     defaultDeletionOptions = new DefaultComboBoxModel<String>();
   }
 
+  public static void tempChangeLabel(JLabel label, String newText) {
+    String oldText = label.getText();
+    label.setText(newText);
+
+    SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
+      @Override
+      protected Object doInBackground() throws Exception {
+        Thread.sleep(1000);
+        return null;
+      }
+
+      @Override
+      protected void done() {
+        label.setText(oldText);
+        super.done();
+      }
+    };
+
+    worker.execute();
+  }
+
   private void setupGUI() {
     frame = new JFrame();
     contentPane = frame.getContentPane();
@@ -137,7 +160,7 @@ public class GUI {
     panel_editStudent.setLayout(null);
 
     lbl_editStudentTitle = new JLabel("Edit Student");
-    lbl_editStudentTitle.setBounds(174, 12, 107, 17);
+    lbl_editStudentTitle.setBounds(12, 12, 107, 17);
     panel_editStudent.add(lbl_editStudentTitle);
 
     lbl_editStudentName = new JLabel("Name:");
@@ -170,7 +193,7 @@ public class GUI {
     contentPane.add(panel_addTeacher, "panel_addTeacher");
 
     lbl_addTeacherTitle = new JLabel("Create Teacher");
-    lbl_addTeacherTitle.setBounds(174, 12, 107, 17);
+    lbl_addTeacherTitle.setBounds(12, 12, 107, 17);
     panel_addTeacher.add(lbl_addTeacherTitle);
 
     lbl_addTeacherName = new JLabel("Name:");
@@ -235,7 +258,7 @@ public class GUI {
     contentPane.add(panel_addIntlStudent, "panel_addIntlStudent");
 
     lbl_addIntlStudentTitle = new JLabel("Create International Student");
-    lbl_addIntlStudentTitle.setBounds(137, 12, 179, 17);
+    lbl_addIntlStudentTitle.setBounds(12, 12, 179, 17);
     panel_addIntlStudent.add(lbl_addIntlStudentTitle);
 
     lbl_addIntlStudentName = new JLabel("Name:");
@@ -276,7 +299,7 @@ public class GUI {
     contentPane.add(panel_addStudent, "panel_addStudent");
 
     lbl_addStudentTitle = new JLabel("Create Student");
-    lbl_addStudentTitle.setBounds(174, 12, 107, 17);
+    lbl_addStudentTitle.setBounds(12, 12, 186, 17);
     panel_addStudent.add(lbl_addStudentTitle);
 
     lbl_addStudentName = new JLabel("Name:");
@@ -309,7 +332,7 @@ public class GUI {
     contentPane.add(panel_editTeacher, "panel_editTeacher");
 
     lbl_editTeacherTitle = new JLabel("Edit Teacher");
-    lbl_editTeacherTitle.setBounds(174, 12, 107, 17);
+    lbl_editTeacherTitle.setBounds(12, 12, 107, 17);
     panel_editTeacher.add(lbl_editTeacherTitle);
 
     lbl_editTeacherName = new JLabel("Name:");
@@ -350,7 +373,7 @@ public class GUI {
     contentPane.add(panel_editIntlStudent, "panel_editIntlStudent");
 
     lbl_editIntlStudentTitle = new JLabel("Create International Student");
-    lbl_editIntlStudentTitle.setBounds(137, 12, 179, 17);
+    lbl_editIntlStudentTitle.setBounds(12, 12, 179, 17);
     panel_editIntlStudent.add(lbl_editIntlStudentTitle);
 
     lbl_editIntlStudentName = new JLabel("Name:");
@@ -568,6 +591,14 @@ public class GUI {
     btn_deleteStudentCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
+      }
+    });
+
+    btn_addStudentSave.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        if (textField_addStudentName.getText().equals("")) {
+          tempChangeLabel(lbl_addStudentTitle, "Please enter a name!");
+        }
       }
     });
 

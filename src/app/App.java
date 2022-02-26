@@ -8,8 +8,7 @@ public class App {
     EventQueue.invokeLater(new Runnable() {
       public void run() {
         try {
-          GUI window = new GUI();
-          window.getFrame().setVisible(true);
+          Engine.run(new GUI());
         } catch (Exception e) {
           e.printStackTrace();
         }
