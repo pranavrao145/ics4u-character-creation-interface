@@ -15,6 +15,10 @@ public class GUI {
   private JFrame frame;
   private CardLayout masterLayout;
 
+  private JPanel panel_home;
+  private JLabel lbl_homeChoose;
+  private JButton btn_homeStudent, btn_homeIntlStudent, btn_homeTeacher;
+
   private JPanel panel_addStudent, panel_editStudent, panel_viewStudents;
 
   private JLabel lbl_addStudentName, lbl_addStudentTitle, lbl_addStudentGrade;
@@ -30,7 +34,8 @@ public class GUI {
 
   private JLabel lbl_viewStudentsTitle;
   private JTable table_viewStudents;
-  private JButton btn_viewStudentsDelete, btn_viewStudentsCreate;
+  private JButton btn_viewStudentsDelete, btn_viewStudentsCreate,
+      btn_viewStudentsGoHome;
 
   private JPanel panel_addTeacher, panel_editTeacher, panel_viewTeachers;
 
@@ -50,7 +55,8 @@ public class GUI {
 
   private JLabel lbl_viewTeachersTitle;
   private JTable table_viewTeachers;
-  private JButton btn_viewTeachersCreate, btn_viewTeachersDelete;
+  private JButton btn_viewTeachersCreate, btn_viewTeachersDelete,
+      btn_viewTeachersGoHome;
 
   private JPanel panel_addIntlStudent, panel_editIntlStudent,
       panel_viewIntlStudents;
@@ -71,7 +77,8 @@ public class GUI {
 
   private JTable table_viewIntlStudents;
   private JLabel lbl_viewIntlStudentsTitle;
-  private JButton btn_viewIntlStudentsCreate, btn_viewIntlStudentsDelete;
+  private JButton btn_viewIntlStudentsCreate, btn_viewIntlStudentsDelete,
+      btn_viewIntlStudentsGoHome;
 
   DefaultComboBoxModel<String> subjectOptions, countryOptions;
   DefaultComboBoxModel<Integer> gradeOptions;
@@ -189,7 +196,7 @@ public class GUI {
     panel_viewTeachers.add(table_viewTeachers);
 
     lbl_viewTeachersTitle = new JLabel("All Teachers");
-    lbl_viewTeachersTitle.setBounds(188, 12, 84, 17);
+    lbl_viewTeachersTitle.setBounds(12, 12, 84, 17);
     panel_viewTeachers.add(lbl_viewTeachersTitle);
 
     btn_viewTeachersCreate = new JButton("Create New Teacher");
@@ -199,6 +206,10 @@ public class GUI {
     btn_viewTeachersDelete = new JButton("Delete Teacher");
     btn_viewTeachersDelete.setBounds(12, 232, 201, 27);
     panel_viewTeachers.add(btn_viewTeachersDelete);
+
+    btn_viewTeachersGoHome = new JButton("Go Home");
+    btn_viewTeachersGoHome.setBounds(323, 9, 105, 22);
+    panel_viewTeachers.add(btn_viewTeachersGoHome);
 
     panel_addIntlStudent = new JPanel();
     panel_addIntlStudent.setLayout(null);
@@ -365,7 +376,7 @@ public class GUI {
     panel_viewStudents.add(table_viewStudents);
 
     lbl_viewStudentsTitle = new JLabel("All Students");
-    lbl_viewStudentsTitle.setBounds(188, 12, 84, 17);
+    lbl_viewStudentsTitle.setBounds(12, 12, 84, 17);
     panel_viewStudents.add(lbl_viewStudentsTitle);
 
     btn_viewStudentsCreate = new JButton("Create New Student");
@@ -375,6 +386,10 @@ public class GUI {
     btn_viewStudentsDelete = new JButton("Delete Student");
     btn_viewStudentsDelete.setBounds(12, 232, 201, 27);
     panel_viewStudents.add(btn_viewStudentsDelete);
+
+    btn_viewStudentsGoHome = new JButton("Go Home");
+    btn_viewStudentsGoHome.setBounds(323, 9, 105, 22);
+    panel_viewStudents.add(btn_viewStudentsGoHome);
 
     panel_viewIntlStudents = new JPanel();
     panel_viewIntlStudents.setLayout(null);
@@ -386,7 +401,7 @@ public class GUI {
     panel_viewIntlStudents.add(table_viewIntlStudents);
 
     lbl_viewIntlStudentsTitle = new JLabel("All International Students");
-    lbl_viewIntlStudentsTitle.setBounds(145, 12, 168, 17);
+    lbl_viewIntlStudentsTitle.setBounds(12, 12, 168, 17);
     panel_viewIntlStudents.add(lbl_viewIntlStudentsTitle);
 
     btn_viewIntlStudentsCreate = new JButton("Create New Student");
@@ -396,6 +411,32 @@ public class GUI {
     btn_viewIntlStudentsDelete = new JButton("Delete Student");
     btn_viewIntlStudentsDelete.setBounds(12, 232, 201, 27);
     panel_viewIntlStudents.add(btn_viewIntlStudentsDelete);
+
+    btn_viewIntlStudentsGoHome = new JButton("Go Home");
+    btn_viewIntlStudentsGoHome.setBounds(323, 9, 105, 22);
+    panel_viewIntlStudents.add(btn_viewIntlStudentsGoHome);
+
+    panel_home = new JPanel();
+    frame.getContentPane().add(panel_home, "panel_home");
+    panel_home.setLayout(null);
+
+    lbl_homeChoose = new JLabel("Choose a table to view and modify:");
+    lbl_homeChoose.setBounds(113, 12, 225, 17);
+    panel_home.add(lbl_homeChoose);
+
+    btn_homeStudent = new JButton("Student");
+    btn_homeStudent.setBounds(12, 115, 125, 27);
+    panel_home.add(btn_homeStudent);
+
+    btn_homeIntlStudent = new JButton("Intl Student");
+    btn_homeIntlStudent.setBounds(162, 115, 125, 27);
+    panel_home.add(btn_homeIntlStudent);
+
+    btn_homeTeacher = new JButton("Teacher");
+    btn_homeTeacher.setBounds(303, 115, 125, 27);
+    panel_home.add(btn_homeTeacher);
+
+    masterLayout.show(frame.getContentPane(), "panel_home");
   }
 
   private void attachListeners() {}
