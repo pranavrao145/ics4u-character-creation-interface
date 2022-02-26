@@ -1,6 +1,9 @@
 package app;
 
 import java.awt.CardLayout;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -12,6 +15,7 @@ import javax.swing.JTextField;
 
 public class GUI {
   private JFrame frame;
+  private Container contentPane; // TODO: may need to force refresh this
   private CardLayout masterLayout;
 
   private JPanel panel_home;
@@ -120,15 +124,16 @@ public class GUI {
 
   private void setupGUI() {
     frame = new JFrame();
+    contentPane = frame.getContentPane();
     masterLayout = new CardLayout();
 
     frame.setResizable(false);
     frame.setBounds(100, 100, 450, 300);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.getContentPane().setLayout(masterLayout);
+    contentPane.setLayout(masterLayout);
 
     panel_editStudent = new JPanel();
-    frame.getContentPane().add(panel_editStudent, "panel_edit");
+    contentPane.add(panel_editStudent, "panel_editStudent");
     panel_editStudent.setLayout(null);
 
     lbl_editStudentTitle = new JLabel("Edit Student");
@@ -162,7 +167,7 @@ public class GUI {
 
     panel_addTeacher = new JPanel();
     panel_addTeacher.setLayout(null);
-    frame.getContentPane().add(panel_addTeacher, "panel_addTeacher");
+    contentPane.add(panel_addTeacher, "panel_addTeacher");
 
     lbl_addTeacherTitle = new JLabel("Create Teacher");
     lbl_addTeacherTitle.setBounds(174, 12, 107, 17);
@@ -203,7 +208,7 @@ public class GUI {
 
     panel_viewTeachers = new JPanel();
     panel_viewTeachers.setLayout(null);
-    frame.getContentPane().add(panel_viewTeachers, "panel_viewTeachers");
+    contentPane.add(panel_viewTeachers, "panel_viewTeachers");
 
     table_viewTeachers = new JTable();
     table_viewTeachers.setBounds(0, 34, 440, 186);
@@ -227,7 +232,7 @@ public class GUI {
 
     panel_addIntlStudent = new JPanel();
     panel_addIntlStudent.setLayout(null);
-    frame.getContentPane().add(panel_addIntlStudent, "panel_addIntlStudent");
+    contentPane.add(panel_addIntlStudent, "panel_addIntlStudent");
 
     lbl_addIntlStudentTitle = new JLabel("Create International Student");
     lbl_addIntlStudentTitle.setBounds(137, 12, 179, 17);
@@ -268,7 +273,7 @@ public class GUI {
 
     panel_addStudent = new JPanel();
     panel_addStudent.setLayout(null);
-    frame.getContentPane().add(panel_addStudent, "panel_addStudent");
+    contentPane.add(panel_addStudent, "panel_addStudent");
 
     lbl_addStudentTitle = new JLabel("Create Student");
     lbl_addStudentTitle.setBounds(174, 12, 107, 17);
@@ -301,7 +306,7 @@ public class GUI {
 
     panel_editTeacher = new JPanel();
     panel_editTeacher.setLayout(null);
-    frame.getContentPane().add(panel_editTeacher, "panel_editTeacher");
+    contentPane.add(panel_editTeacher, "panel_editTeacher");
 
     lbl_editTeacherTitle = new JLabel("Edit Teacher");
     lbl_editTeacherTitle.setBounds(174, 12, 107, 17);
@@ -342,7 +347,7 @@ public class GUI {
 
     panel_editIntlStudent = new JPanel();
     panel_editIntlStudent.setLayout(null);
-    frame.getContentPane().add(panel_editIntlStudent, "panel_editIntlStudent");
+    contentPane.add(panel_editIntlStudent, "panel_editIntlStudent");
 
     lbl_editIntlStudentTitle = new JLabel("Create International Student");
     lbl_editIntlStudentTitle.setBounds(137, 12, 179, 17);
@@ -383,7 +388,7 @@ public class GUI {
 
     panel_viewStudents = new JPanel();
     panel_viewStudents.setLayout(null);
-    frame.getContentPane().add(panel_viewStudents, "panel_viewStudents");
+    contentPane.add(panel_viewStudents, "panel_viewStudents");
 
     table_viewStudents = new JTable();
     table_viewStudents.setBounds(0, 34, 440, 186);
@@ -407,8 +412,7 @@ public class GUI {
 
     panel_viewIntlStudents = new JPanel();
     panel_viewIntlStudents.setLayout(null);
-    frame.getContentPane().add(panel_viewIntlStudents,
-                               "panel_viewIntlStudents");
+    contentPane.add(panel_viewIntlStudents, "panel_viewIntlStudents");
 
     table_viewIntlStudents = new JTable();
     table_viewIntlStudents.setBounds(0, 34, 440, 186);
@@ -431,7 +435,7 @@ public class GUI {
     panel_viewIntlStudents.add(btn_viewIntlStudentsGoHome);
 
     panel_home = new JPanel();
-    frame.getContentPane().add(panel_home, "panel_home");
+    contentPane.add(panel_home, "panel_home");
     panel_home.setLayout(null);
 
     lbl_homeChoose = new JLabel("Choose a table to view and modify:");
@@ -450,10 +454,10 @@ public class GUI {
     btn_homeTeacher.setBounds(303, 115, 125, 27);
     panel_home.add(btn_homeTeacher);
 
-    masterLayout.show(frame.getContentPane(), "panel_home");
+    masterLayout.show(contentPane, "panel_home");
 
     panel_deleteStudent = new JPanel();
-    frame.getContentPane().add(panel_deleteStudent, "panel_deleteStudent");
+    contentPane.add(panel_deleteStudent, "panel_deleteStudent");
     panel_deleteStudent.setLayout(null);
 
     btn_deleteStudentCancel = new JButton("Cancel");
@@ -474,7 +478,7 @@ public class GUI {
 
     panel_deleteTeacher = new JPanel();
     panel_deleteTeacher.setLayout(null);
-    frame.getContentPane().add(panel_deleteTeacher, "panel_deleteTeacher");
+    contentPane.add(panel_deleteTeacher, "panel_deleteTeacher");
 
     btn_deleteTeacherCancel = new JButton("Cancel");
     btn_deleteTeacherCancel.setBounds(108, 231, 105, 27);
@@ -494,8 +498,7 @@ public class GUI {
 
     panel_deleteIntlStudent = new JPanel();
     panel_deleteIntlStudent.setLayout(null);
-    frame.getContentPane().add(panel_deleteIntlStudent,
-                               "panel_deleteIntlStudent");
+    contentPane.add(panel_deleteIntlStudent, "panel_deleteIntlStudent");
 
     btn_deleteIntlStudentCancel = new JButton("Cancel");
     btn_deleteIntlStudentCancel.setBounds(108, 231, 105, 27);
@@ -515,7 +518,123 @@ public class GUI {
     panel_deleteIntlStudent.add(lbl_deleteIntlStudent);
   }
 
-  private void attachListeners() {}
+  private void attachListeners() {
+    // listeners for the home screen
+
+    btn_homeStudent.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewStudents");
+      }
+    });
+
+    btn_homeTeacher.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewTeachers");
+      }
+    });
+
+    btn_homeIntlStudent.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewIntlStudents");
+      }
+    });
+
+    // listners for the view students screen
+
+    btn_viewStudentsGoHome.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_home");
+      }
+    });
+
+    btn_viewStudentsCreate.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_addStudent");
+      }
+    });
+
+    btn_viewStudentsDelete.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_deleteStudent");
+      }
+    });
+
+    btn_addStudentCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewStudents");
+      }
+    });
+
+    btn_deleteStudentCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewStudents");
+      }
+    });
+
+    // listners for the view teachers screen
+
+    btn_viewTeachersGoHome.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_home");
+      }
+    });
+
+    btn_viewTeachersCreate.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_addTeacher");
+      }
+    });
+
+    btn_viewTeachersDelete.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_deleteTeacher");
+      }
+    });
+
+    btn_addTeacherCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewTeachers");
+      }
+    });
+
+    btn_deleteTeacherCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewTeachers");
+      }
+    });
+
+    // listners for the view international students screen
+
+    btn_viewIntlStudentsGoHome.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_home");
+      }
+    });
+
+    btn_viewIntlStudentsCreate.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_addIntlStudent");
+      }
+    });
+
+    btn_viewIntlStudentsDelete.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_deleteIntlStudent");
+      }
+    });
+
+    btn_addIntlStudentCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewIntlStudents");
+      }
+    });
+
+    btn_deleteIntlStudentCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewIntlStudents");
+      }
+    });
+  }
 
   public JFrame getFrame() { return frame; }
 }
