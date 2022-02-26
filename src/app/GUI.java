@@ -11,7 +11,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class GUI {
-
   private JFrame frame;
   private CardLayout masterLayout;
 
@@ -19,7 +18,8 @@ public class GUI {
   private JLabel lbl_homeChoose;
   private JButton btn_homeStudent, btn_homeIntlStudent, btn_homeTeacher;
 
-  private JPanel panel_addStudent, panel_editStudent, panel_viewStudents;
+  private JPanel panel_addStudent, panel_editStudent, panel_viewStudents,
+      panel_deleteStudent;
 
   private JLabel lbl_addStudentName, lbl_addStudentTitle, lbl_addStudentGrade;
   private JButton btn_addStudentSave, btn_addStudentCancel;
@@ -37,7 +37,12 @@ public class GUI {
   private JButton btn_viewStudentsDelete, btn_viewStudentsCreate,
       btn_viewStudentsGoHome;
 
-  private JPanel panel_addTeacher, panel_editTeacher, panel_viewTeachers;
+  private JButton btn_deleteStudentCancel, btn_deleteStudentSave;
+  private JLabel lbl_deleteStudent;
+  private JComboBox<String> comboBox_deleteStudent;
+
+  private JPanel panel_addTeacher, panel_editTeacher, panel_viewTeachers,
+      panel_deleteTeacher;
 
   private JLabel lbl_addTeacherName, lbl_addTeacherTitle,
       lbl_addTeacherSubject1, lbl_addTeacherSubject2;
@@ -58,8 +63,12 @@ public class GUI {
   private JButton btn_viewTeachersCreate, btn_viewTeachersDelete,
       btn_viewTeachersGoHome;
 
+  private JButton btn_deleteTeacherSave, btn_deleteTeacherCancel;
+  private JLabel lbl_deleteTeacher;
+  private JComboBox<String> comboBox_deleteTeacher;
+
   private JPanel panel_addIntlStudent, panel_editIntlStudent,
-      panel_viewIntlStudents;
+      panel_viewIntlStudents, panel_deleteIntlStudent;
 
   private JLabel lbl_addIntlStudentName, lbl_addIntlStudentTitle,
       lbl_addIntlStudentGrade, lbl_addIntlStudentCountry;
@@ -80,7 +89,12 @@ public class GUI {
   private JButton btn_viewIntlStudentsCreate, btn_viewIntlStudentsDelete,
       btn_viewIntlStudentsGoHome;
 
-  DefaultComboBoxModel<String> subjectOptions, countryOptions;
+  private JButton btn_deleteIntlStudentCancel, btn_deleteIntlStudentSave;
+  private JLabel lbl_deleteIntlStudent;
+  private JComboBox<String> comboBox_deleteIntlStudent;
+
+  DefaultComboBoxModel<String> subjectOptions, countryOptions,
+      defaultDeletionOptions;
   DefaultComboBoxModel<Integer> gradeOptions;
 
   public GUI() {
@@ -99,9 +113,9 @@ public class GUI {
 
     countryOptions = new DefaultComboBoxModel<String>(new String[] {
         "India", "China", "Russia", "United Kingdom", "France", "Germany",
-        "South Africa", "Argentina", "Brazil", "United States of America"
+        "South Africa", "Argentina", "Brazil", "United States of America"});
 
-    });
+    defaultDeletionOptions = new DefaultComboBoxModel<String>();
   }
 
   private void setupGUI() {
@@ -429,7 +443,7 @@ public class GUI {
     panel_home.add(btn_homeStudent);
 
     btn_homeIntlStudent = new JButton("Intl Student");
-    btn_homeIntlStudent.setBounds(162, 115, 125, 27);
+    btn_homeIntlStudent.setBounds(159, 115, 125, 27);
     panel_home.add(btn_homeIntlStudent);
 
     btn_homeTeacher = new JButton("Teacher");
@@ -437,6 +451,68 @@ public class GUI {
     panel_home.add(btn_homeTeacher);
 
     masterLayout.show(frame.getContentPane(), "panel_home");
+
+    panel_deleteStudent = new JPanel();
+    frame.getContentPane().add(panel_deleteStudent, "panel_deleteStudent");
+    panel_deleteStudent.setLayout(null);
+
+    btn_deleteStudentCancel = new JButton("Cancel");
+    btn_deleteStudentCancel.setBounds(108, 231, 105, 27);
+    panel_deleteStudent.add(btn_deleteStudentCancel);
+
+    btn_deleteStudentSave = new JButton("Delete");
+    btn_deleteStudentSave.setBounds(225, 231, 105, 27);
+    panel_deleteStudent.add(btn_deleteStudentSave);
+
+    comboBox_deleteStudent = new JComboBox<String>(defaultDeletionOptions);
+    comboBox_deleteStudent.setBounds(146, 109, 133, 26);
+    panel_deleteStudent.add(comboBox_deleteStudent);
+
+    lbl_deleteStudent = new JLabel("Choose a student to delete:");
+    lbl_deleteStudent.setBounds(126, 80, 171, 17);
+    panel_deleteStudent.add(lbl_deleteStudent);
+
+    panel_deleteTeacher = new JPanel();
+    panel_deleteTeacher.setLayout(null);
+    frame.getContentPane().add(panel_deleteTeacher, "panel_deleteTeacher");
+
+    btn_deleteTeacherCancel = new JButton("Cancel");
+    btn_deleteTeacherCancel.setBounds(108, 231, 105, 27);
+    panel_deleteTeacher.add(btn_deleteTeacherCancel);
+
+    btn_deleteTeacherSave = new JButton("Delete");
+    btn_deleteTeacherSave.setBounds(225, 231, 105, 27);
+    panel_deleteTeacher.add(btn_deleteTeacherSave);
+
+    comboBox_deleteTeacher = new JComboBox<String>(defaultDeletionOptions);
+    comboBox_deleteTeacher.setBounds(146, 109, 133, 26);
+    panel_deleteTeacher.add(comboBox_deleteTeacher);
+
+    lbl_deleteTeacher = new JLabel("Choose a teacher to delete:");
+    lbl_deleteTeacher.setBounds(126, 80, 171, 17);
+    panel_deleteTeacher.add(lbl_deleteTeacher);
+
+    panel_deleteIntlStudent = new JPanel();
+    panel_deleteIntlStudent.setLayout(null);
+    frame.getContentPane().add(panel_deleteIntlStudent,
+                               "panel_deleteIntlStudent");
+
+    btn_deleteIntlStudentCancel = new JButton("Cancel");
+    btn_deleteIntlStudentCancel.setBounds(108, 231, 105, 27);
+    panel_deleteIntlStudent.add(btn_deleteIntlStudentCancel);
+
+    btn_deleteIntlStudentSave = new JButton("Delete");
+    btn_deleteIntlStudentSave.setBounds(225, 231, 105, 27);
+    panel_deleteIntlStudent.add(btn_deleteIntlStudentSave);
+
+    comboBox_deleteIntlStudent = new JComboBox<String>(defaultDeletionOptions);
+    comboBox_deleteIntlStudent.setBounds(146, 109, 133, 26);
+    panel_deleteIntlStudent.add(comboBox_deleteIntlStudent);
+
+    lbl_deleteIntlStudent =
+        new JLabel("Choose an international student to delete:");
+    lbl_deleteIntlStudent.setBounds(91, 77, 252, 17);
+    panel_deleteIntlStudent.add(lbl_deleteIntlStudent);
   }
 
   private void attachListeners() {}
