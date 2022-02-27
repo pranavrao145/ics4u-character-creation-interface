@@ -18,7 +18,7 @@ import models.*;
 
 public class GUI {
   private JFrame frame;
-  private Container contentPane; // TODO: may need to force refresh this
+  private Container contentPane;
   private CardLayout masterLayout;
 
   private JPanel panel_home;
@@ -44,7 +44,7 @@ public class GUI {
   private JButton btn_viewStudentsDelete, btn_viewStudentsCreate,
       btn_viewStudentsGoHome;
 
-  private JButton btn_deleteStudentCancel, btn_deleteStudentSave;
+  private JButton btn_deleteStudentCancel, btn_deleteStudentDelete;
   private JLabel lbl_deleteStudent;
   private JComboBox<String> comboBox_deleteStudent;
 
@@ -70,7 +70,7 @@ public class GUI {
   private JButton btn_viewTeachersCreate, btn_viewTeachersDelete,
       btn_viewTeachersGoHome;
 
-  private JButton btn_deleteTeacherSave, btn_deleteTeacherCancel;
+  private JButton btn_deleteTeacherDelete, btn_deleteTeacherCancel;
   private JLabel lbl_deleteTeacher;
   private JComboBox<String> comboBox_deleteTeacher;
 
@@ -96,7 +96,7 @@ public class GUI {
   private JButton btn_viewIntlStudentsCreate, btn_viewIntlStudentsDelete,
       btn_viewIntlStudentsGoHome;
 
-  private JButton btn_deleteIntlStudentCancel, btn_deleteIntlStudentSave;
+  private JButton btn_deleteIntlStudentCancel, btn_deleteIntlStudentDelete;
   private JLabel lbl_deleteIntlStudent;
   private JComboBox<String> comboBox_deleteIntlStudent;
 
@@ -197,6 +197,7 @@ public class GUI {
   private void updateDeleteList(Class<?> cls, JComboBox<String> comboBox) {
     DefaultComboBoxModel<String> comboBoxModel =
         (DefaultComboBoxModel<String>)comboBox.getModel();
+    comboBoxModel.removeAllElements();
 
     if (cls == Student.class) {
       for (Student student : Engine.getStudents()) {
@@ -302,8 +303,10 @@ public class GUI {
     panel_viewTeachers.setLayout(null);
     contentPane.add(panel_viewTeachers, "panel_viewTeachers");
 
-    table_viewTeachers = new JTable(new DefaultTableModel(
-        new Object[] {"Name", "Subject 1", "Subject 2"}, 0));
+    DefaultTableModel viewTeacherModel = new DefaultTableModel(
+        new Object[] {"Name", "Subject 1", "Subject 2"}, 0);
+    table_viewTeachers = new JTable(viewTeacherModel);
+    viewTeacherModel.addRow(new Object[] {"Name", "Subject 1", "Subject 2"});
     table_viewTeachers.setEnabled(false);
     table_viewTeachers.setBounds(0, 34, 440, 186);
     panel_viewTeachers.add(table_viewTeachers);
@@ -484,8 +487,10 @@ public class GUI {
     panel_viewStudents.setLayout(null);
     contentPane.add(panel_viewStudents, "panel_viewStudents");
 
-    table_viewStudents =
-        new JTable(new DefaultTableModel(new Object[] {"Name", "Grade"}, 0));
+    DefaultTableModel viewStudentsModel =
+        new DefaultTableModel(new Object[] {"Name", "Grade"}, 0);
+    table_viewStudents = new JTable(viewStudentsModel);
+    viewStudentsModel.addRow(new Object[] {"Name", "Grade"});
     table_viewStudents.setEnabled(false);
     table_viewStudents.setBounds(0, 34, 440, 186);
     panel_viewStudents.add(table_viewStudents);
@@ -510,8 +515,10 @@ public class GUI {
     panel_viewIntlStudents.setLayout(null);
     contentPane.add(panel_viewIntlStudents, "panel_viewIntlStudents");
 
-    table_viewIntlStudents = new JTable(
-        new DefaultTableModel(new Object[] {"Name", "Grade", "Country"}, 0));
+    DefaultTableModel viewIntlStudentsModel =
+        new DefaultTableModel(new Object[] {"Name", "Grade", "Country"}, 0);
+    table_viewIntlStudents = new JTable(viewIntlStudentsModel);
+    viewIntlStudentsModel.addRow(new Object[] {"Name", "Grade", "Country"});
     table_viewIntlStudents.setEnabled(false);
     table_viewIntlStudents.setBounds(0, 34, 440, 186);
     panel_viewIntlStudents.add(table_viewIntlStudents);
@@ -562,9 +569,9 @@ public class GUI {
     btn_deleteStudentCancel.setBounds(108, 231, 105, 27);
     panel_deleteStudent.add(btn_deleteStudentCancel);
 
-    btn_deleteStudentSave = new JButton("Delete");
-    btn_deleteStudentSave.setBounds(225, 231, 105, 27);
-    panel_deleteStudent.add(btn_deleteStudentSave);
+    btn_deleteStudentDelete = new JButton("Delete");
+    btn_deleteStudentDelete.setBounds(225, 231, 105, 27);
+    panel_deleteStudent.add(btn_deleteStudentDelete);
 
     comboBox_deleteStudent = new JComboBox<String>(defaultDeletionOptions);
     comboBox_deleteStudent.setBounds(146, 109, 133, 26);
@@ -582,9 +589,9 @@ public class GUI {
     btn_deleteTeacherCancel.setBounds(108, 231, 105, 27);
     panel_deleteTeacher.add(btn_deleteTeacherCancel);
 
-    btn_deleteTeacherSave = new JButton("Delete");
-    btn_deleteTeacherSave.setBounds(225, 231, 105, 27);
-    panel_deleteTeacher.add(btn_deleteTeacherSave);
+    btn_deleteTeacherDelete = new JButton("Delete");
+    btn_deleteTeacherDelete.setBounds(225, 231, 105, 27);
+    panel_deleteTeacher.add(btn_deleteTeacherDelete);
 
     comboBox_deleteTeacher = new JComboBox<String>(defaultDeletionOptions);
     comboBox_deleteTeacher.setBounds(146, 109, 133, 26);
@@ -602,9 +609,9 @@ public class GUI {
     btn_deleteIntlStudentCancel.setBounds(108, 231, 105, 27);
     panel_deleteIntlStudent.add(btn_deleteIntlStudentCancel);
 
-    btn_deleteIntlStudentSave = new JButton("Delete");
-    btn_deleteIntlStudentSave.setBounds(225, 231, 105, 27);
-    panel_deleteIntlStudent.add(btn_deleteIntlStudentSave);
+    btn_deleteIntlStudentDelete = new JButton("Delete");
+    btn_deleteIntlStudentDelete.setBounds(225, 231, 105, 27);
+    panel_deleteIntlStudent.add(btn_deleteIntlStudentDelete);
 
     comboBox_deleteIntlStudent = new JComboBox<String>(defaultDeletionOptions);
     comboBox_deleteIntlStudent.setBounds(146, 109, 133, 26);
@@ -693,6 +700,15 @@ public class GUI {
       }
     });
 
+    btn_deleteStudentDelete.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        int index = comboBox_deleteStudent.getSelectedIndex();
+        Engine.getStudents().remove(Engine.getStudents().get(index));
+        updateViewTable(Student.class, table_viewStudents);
+        masterLayout.show(contentPane, "panel_viewStudents");
+      }
+    });
+
     // listners for the view teachers screen
 
     btn_viewTeachersGoHome.addActionListener(new ActionListener() {
@@ -746,6 +762,15 @@ public class GUI {
 
     btn_deleteTeacherCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewTeachers");
+      }
+    });
+
+    btn_deleteTeacherDelete.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        int index = comboBox_deleteTeacher.getSelectedIndex();
+        Engine.getTeachers().remove(Engine.getTeachers().get(index));
+        updateViewTable(Teacher.class, table_viewTeachers);
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
@@ -804,6 +829,16 @@ public class GUI {
 
     btn_deleteIntlStudentCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewIntlStudents");
+      }
+    });
+
+    btn_deleteIntlStudentDelete.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        int index = comboBox_deleteIntlStudent.getSelectedIndex();
+        Engine.getInternationalStudents().remove(
+            Engine.getInternationalStudents().get(index));
+        updateViewTable(InternationalStudent.class, table_viewIntlStudents);
         masterLayout.show(contentPane, "panel_viewIntlStudents");
       }
     });
