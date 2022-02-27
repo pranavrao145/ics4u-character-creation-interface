@@ -4,6 +4,8 @@ import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -840,6 +842,16 @@ public class GUI {
             Engine.getInternationalStudents().get(index));
         updateViewTable(InternationalStudent.class, table_viewIntlStudents);
         masterLayout.show(contentPane, "panel_viewIntlStudents");
+      }
+    });
+
+    // listener for when the window closes
+    frame.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        Engine.saveDataToFile();
+        frame.dispose();
+        System.exit(0);
       }
     });
   }
