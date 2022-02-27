@@ -3,6 +3,12 @@ package models;
 public class Teacher extends Person {
   private String subject1, subject2;
 
+  public Teacher(String name, String subject1, String subject2) {
+    super(name);
+    this.subject1 = subject1;
+    this.subject2 = subject2;
+  }
+
   public String getSubject1() { return subject1; }
 
   public String getSubject2() { return subject2; }

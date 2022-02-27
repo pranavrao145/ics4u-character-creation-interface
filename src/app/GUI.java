@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
+import models.*;
 
 public class GUI {
   private JFrame frame;
@@ -576,9 +577,11 @@ public class GUI {
       }
     });
 
-    btn_viewStudentsDelete.addActionListener(new ActionListener() {
+    // listeners for the add student screen
+
+    btn_deleteStudentCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        masterLayout.show(contentPane, "panel_deleteStudent");
+        masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
 
@@ -588,17 +591,20 @@ public class GUI {
       }
     });
 
-    btn_deleteStudentCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        masterLayout.show(contentPane, "panel_viewStudents");
-      }
-    });
-
     btn_addStudentSave.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         if (textField_addStudentName.getText().equals("")) {
           tempChangeLabel(lbl_addStudentTitle, "Please enter a name!");
+        } else {
         }
+      }
+    });
+
+    // listeners for the delete student screen
+
+    btn_viewStudentsDelete.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_deleteStudent");
       }
     });
 
@@ -622,11 +628,15 @@ public class GUI {
       }
     });
 
+    // listeners for the add teacher screen
+
     btn_addTeacherCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
+
+    // listeners for the delete teacher screen
 
     btn_deleteTeacherCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -634,7 +644,7 @@ public class GUI {
       }
     });
 
-    // listners for the view international students screen
+    // listeners for the view international students screen
 
     btn_viewIntlStudentsGoHome.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -654,11 +664,15 @@ public class GUI {
       }
     });
 
+    // listeners for the add international students screen
+
     btn_addIntlStudentCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewIntlStudents");
       }
     });
+
+    // listeners for the delete international students screen
 
     btn_deleteIntlStudentCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
