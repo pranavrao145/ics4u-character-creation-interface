@@ -147,6 +147,27 @@ public class GUI {
     worker.execute();
   }
 
+  public static void tempChangeLabel(JButton button, String newText) {
+    String oldText = button.getText();
+    button.setText(newText);
+
+    SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
+      @Override
+      protected Object doInBackground() throws Exception {
+        Thread.sleep(1000);
+        return null;
+      }
+
+      @Override
+      protected void done() {
+        button.setText(oldText);
+        super.done();
+      }
+    };
+
+    worker.execute();
+  }
+
   private void updateViewTable(Class<?> cls, JTable table) {
     DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
     tableModel.getDataVector().removeAllElements();
@@ -169,6 +190,26 @@ public class GUI {
         tableModel.addRow(new Object[] {internationalStudent.getName(),
                                         internationalStudent.getGrade(),
                                         internationalStudent.getCountry()});
+      }
+    }
+  }
+
+  private void updateDeleteList(Class<?> cls, JComboBox<String> comboBox) {
+    DefaultComboBoxModel<String> comboBoxModel =
+        (DefaultComboBoxModel<String>)comboBox.getModel();
+
+    if (cls == Student.class) {
+      for (Student student : Engine.getStudents()) {
+        comboBoxModel.addElement(student.getName());
+      }
+    } else if (cls == Teacher.class) {
+      for (Teacher teacher : Engine.getTeachers()) {
+        comboBoxModel.addElement(teacher.getName());
+      }
+    } else if (cls == InternationalStudent.class) {
+      for (InternationalStudent internationalstudent :
+           Engine.getInternationalStudents()) {
+        comboBoxModel.addElement(internationalstudent.getName());
       }
     }
   }
@@ -612,7 +653,13 @@ public class GUI {
 
     btn_viewStudentsDelete.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        masterLayout.show(contentPane, "panel_deleteStudent");
+        // if there are no students
+        if (Engine.getStudents().size() == 0) {
+          tempChangeLabel(btn_viewStudentsDelete, "No students yet!");
+        } else {
+          updateDeleteList(Student.class, comboBox_deleteStudent);
+          masterLayout.show(contentPane, "panel_deleteStudent");
+        }
       }
     });
 
@@ -662,7 +709,13 @@ public class GUI {
 
     btn_viewTeachersDelete.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        masterLayout.show(contentPane, "panel_deleteTeacher");
+        // if there are no teachers
+        if (Engine.getTeachers().size() == 0) {
+          tempChangeLabel(btn_viewTeachersDelete, "No teachers yet!");
+        } else {
+          updateDeleteList(Teacher.class, comboBox_deleteTeacher);
+          masterLayout.show(contentPane, "panel_deleteTeacher");
+        }
       }
     });
 
@@ -713,7 +766,14 @@ public class GUI {
 
     btn_viewIntlStudentsDelete.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        masterLayout.show(contentPane, "panel_deleteIntlStudent");
+        // if there are no international students
+        if (Engine.getInternationalStudents().size() == 0) {
+          tempChangeLabel(btn_viewIntlStudentsDelete, "No students yet!");
+        } else {
+          updateDeleteList(InternationalStudent.class,
+                           comboBox_deleteIntlStudent);
+          masterLayout.show(contentPane, "panel_deleteIntlStudent");
+        }
       }
     });
 
