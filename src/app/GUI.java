@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
+import javax.swing.table.DefaultTableModel;
 import models.*;
 
 public class GUI {
@@ -146,6 +147,32 @@ public class GUI {
     worker.execute();
   }
 
+  private void updateViewTable(Class<?> cls, JTable table) {
+    DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
+    tableModel.getDataVector().removeAllElements();
+
+    if (cls == Student.class) {
+      tableModel.addRow(new Object[] {"Name", "Grade"});
+      for (Student student : Engine.getStudents()) {
+        tableModel.addRow(new Object[] {student.getName(), student.getGrade()});
+      }
+    } else if (cls == Teacher.class) {
+      tableModel.addRow(new Object[] {"Name", "Subject 1", "Subject 2"});
+      for (Teacher teacher : Engine.getTeachers()) {
+        tableModel.addRow(new Object[] {
+            teacher.getName(), teacher.getSubject1(), teacher.getSubject2()});
+      }
+    } else if (cls == InternationalStudent.class) {
+      tableModel.addRow(new Object[] {"Name", "Grade", "Country"});
+      for (InternationalStudent internationalStudent :
+           Engine.getInternationalStudents()) {
+        tableModel.addRow(new Object[] {internationalStudent.getName(),
+                                        internationalStudent.getGrade(),
+                                        internationalStudent.getCountry()});
+      }
+    }
+  }
+
   private void setupGUI() {
     frame = new JFrame();
     contentPane = frame.getContentPane();
@@ -234,7 +261,9 @@ public class GUI {
     panel_viewTeachers.setLayout(null);
     contentPane.add(panel_viewTeachers, "panel_viewTeachers");
 
-    table_viewTeachers = new JTable();
+    table_viewTeachers = new JTable(new DefaultTableModel(
+        new Object[] {"Name", "Subject 1", "Subject 2"}, 0));
+    table_viewTeachers.setEnabled(false);
     table_viewTeachers.setBounds(0, 34, 440, 186);
     panel_viewTeachers.add(table_viewTeachers);
 
@@ -414,7 +443,9 @@ public class GUI {
     panel_viewStudents.setLayout(null);
     contentPane.add(panel_viewStudents, "panel_viewStudents");
 
-    table_viewStudents = new JTable();
+    table_viewStudents =
+        new JTable(new DefaultTableModel(new Object[] {"Name", "Grade"}, 0));
+    table_viewStudents.setEnabled(false);
     table_viewStudents.setBounds(0, 34, 440, 186);
     panel_viewStudents.add(table_viewStudents);
 
@@ -438,7 +469,9 @@ public class GUI {
     panel_viewIntlStudents.setLayout(null);
     contentPane.add(panel_viewIntlStudents, "panel_viewIntlStudents");
 
-    table_viewIntlStudents = new JTable();
+    table_viewIntlStudents = new JTable(
+        new DefaultTableModel(new Object[] {"Name", "Grade", "Country"}, 0));
+    table_viewIntlStudents.setEnabled(false);
     table_viewIntlStudents.setBounds(0, 34, 440, 186);
     panel_viewIntlStudents.add(table_viewIntlStudents);
 
@@ -577,13 +610,13 @@ public class GUI {
       }
     });
 
-    // listeners for the add student screen
-
-    btn_deleteStudentCancel.addActionListener(new ActionListener() {
+    btn_viewStudentsDelete.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        masterLayout.show(contentPane, "panel_viewStudents");
+        masterLayout.show(contentPane, "panel_deleteStudent");
       }
     });
+
+    // listeners for the add student screen
 
     btn_addStudentCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -596,15 +629,20 @@ public class GUI {
         if (textField_addStudentName.getText().equals("")) {
           tempChangeLabel(lbl_addStudentTitle, "Please enter a name!");
         } else {
+          Engine.getStudents().add(
+              new Student(textField_addStudentName.getText(),
+                          (int)comboBox_addStudentGrade.getSelectedItem()));
+          updateViewTable(Student.class, table_viewStudents);
+          masterLayout.show(contentPane, "panel_viewStudents");
         }
       }
     });
 
     // listeners for the delete student screen
 
-    btn_viewStudentsDelete.addActionListener(new ActionListener() {
+    btn_deleteStudentCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        masterLayout.show(contentPane, "panel_deleteStudent");
+        masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
 
@@ -633,6 +671,21 @@ public class GUI {
     btn_addTeacherCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
+      }
+    });
+
+    btn_addTeacherSave.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        if (textField_addTeacherName.getText().equals("")) {
+          tempChangeLabel(lbl_addTeacherTitle, "Please enter a name!");
+        } else {
+          Engine.getTeachers().add(new Teacher(
+              textField_addTeacherName.getText(),
+              (String)comboBox_addTeacherSubject1.getSelectedItem(),
+              (String)comboBox_addTeacherSubject2.getSelectedItem()));
+          updateViewTable(Teacher.class, table_viewTeachers);
+          masterLayout.show(contentPane, "panel_viewTeachers");
+        }
       }
     });
 
@@ -669,6 +722,21 @@ public class GUI {
     btn_addIntlStudentCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewIntlStudents");
+      }
+    });
+
+    btn_addIntlStudentSave.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        if (textField_addIntlStudentName.getText().equals("")) {
+          tempChangeLabel(lbl_addIntlStudentTitle, "Please enter a name!");
+        } else {
+          Engine.getInternationalStudents().add(new InternationalStudent(
+              textField_addIntlStudentName.getText(),
+              (int)comboBox_addIntlStudentGrade.getSelectedItem(),
+              (String)comboBox_addIntlStudentCountry.getSelectedItem()));
+          updateViewTable(InternationalStudent.class, table_viewIntlStudents);
+          masterLayout.show(contentPane, "panel_viewIntlStudents");
+        }
       }
     });
 
