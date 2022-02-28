@@ -27,31 +27,36 @@ public class GUI {
   private JLabel lbl_homeChoose;
   private JButton btn_homeStudent, btn_homeIntlStudent, btn_homeTeacher;
 
-  private JPanel panel_addStudent, panel_editStudent, panel_viewStudents,
-      panel_deleteStudent;
+  private JPanel panel_addStudent, panel_editStudent,
+      panel_editStudentSelection, panel_viewStudents, panel_deleteStudent;
 
   private JLabel lbl_addStudentName, lbl_addStudentTitle, lbl_addStudentGrade;
   private JButton btn_addStudentSave, btn_addStudentCancel;
   private JTextField textField_addStudentName;
   private JComboBox<Integer> comboBox_addStudentGrade;
 
+  private JLabel lbl_editStudentSelection;
+  private JComboBox<String> comboBox_editStudentSelection;
+  private JButton btn_editStudentSelectionCancel, btn_editStudentSelectionEdit;
+
   private JTextField textField_editStudentName;
   private JLabel lbl_editStudentTitle, lbl_editStudentName,
       lbl_editStudentGrade;
   private JComboBox<Integer> comboBox_editStudentGrade;
   private JButton btn_editStudentCancel, btn_editStudentSave;
+  private int currentlyEditingStudent;
 
   private JLabel lbl_viewStudentsTitle;
   private JTable table_viewStudents;
   private JButton btn_viewStudentsDelete, btn_viewStudentsCreate,
-      btn_viewStudentsGoHome;
+      btn_viewStudentsGoHome, btn_viewStudentsEdit;
 
   private JButton btn_deleteStudentCancel, btn_deleteStudentDelete;
   private JLabel lbl_deleteStudent;
   private JComboBox<String> comboBox_deleteStudent;
 
   private JPanel panel_addTeacher, panel_editTeacher, panel_viewTeachers,
-      panel_deleteTeacher;
+      panel_deleteTeacher, panel_editTeacherSelection;
 
   private JLabel lbl_addTeacherName, lbl_addTeacherTitle,
       lbl_addTeacherSubject1, lbl_addTeacherSubject2;
@@ -59,6 +64,11 @@ public class GUI {
   private JTextField textField_addTeacherName;
   private JComboBox<String> comboBox_addTeacherSubject1,
       comboBox_addTeacherSubject2;
+
+  private JButton btn_editTeacherSelectionCancel, btn_editTeacherSelectionEdit;
+  private JComboBox<String> comboBox_editTeacherSelection;
+  private JLabel lbl_editTeacherSelection;
+  private int currentlyEditingTeacher;
 
   private JLabel lbl_editTeacherName, lbl_editTeacherTitle,
       lbl_editTeacherSubject1, lbl_editTeacherSubject2;
@@ -70,14 +80,15 @@ public class GUI {
   private JLabel lbl_viewTeachersTitle;
   private JTable table_viewTeachers;
   private JButton btn_viewTeachersCreate, btn_viewTeachersDelete,
-      btn_viewTeachersGoHome;
+      btn_viewTeachersGoHome, btn_viewTeachersEdit;
 
   private JButton btn_deleteTeacherDelete, btn_deleteTeacherCancel;
   private JLabel lbl_deleteTeacher;
   private JComboBox<String> comboBox_deleteTeacher;
 
   private JPanel panel_addIntlStudent, panel_editIntlStudent,
-      panel_viewIntlStudents, panel_deleteIntlStudent;
+      panel_viewIntlStudents, panel_deleteIntlStudent,
+      panel_editIntlStudentSelection;
 
   private JLabel lbl_addIntlStudentName, lbl_addIntlStudentTitle,
       lbl_addIntlStudentGrade, lbl_addIntlStudentCountry;
@@ -85,6 +96,12 @@ public class GUI {
   private JTextField textField_addIntlStudentName;
   private JComboBox<Integer> comboBox_addIntlStudentGrade;
   private JComboBox<String> comboBox_addIntlStudentCountry;
+
+  private JLabel lbl_editIntlStudentSelectionCancel;
+  private JComboBox<String> comboBox_editIntlStudentSelection;
+  private JButton btn_editIntlStudentSelectionCancel,
+      btn_editIntlStudentSelectionEdit;
+  private int currentlyEditingInternationalStudent;
 
   private JLabel lbl_editIntlStudentTitle, lbl_editIntlStudentName,
       lbl_editIntlStudentGrade, lbl_editIntlStudentCountry;
@@ -96,18 +113,15 @@ public class GUI {
   private JTable table_viewIntlStudents;
   private JLabel lbl_viewIntlStudentsTitle;
   private JButton btn_viewIntlStudentsCreate, btn_viewIntlStudentsDelete,
-      btn_viewIntlStudentsGoHome;
+      btn_viewIntlStudentsGoHome, btn_viewIntlStudentsEdit;
 
   private JButton btn_deleteIntlStudentCancel, btn_deleteIntlStudentDelete;
   private JLabel lbl_deleteIntlStudent;
   private JComboBox<String> comboBox_deleteIntlStudent;
 
   DefaultComboBoxModel<String> subject1Options, subject2Options, countryOptions,
-      defaultDeletionOptions;
+      defaultDeletionOptions, defaultEditOptions;
   DefaultComboBoxModel<Integer> gradeOptions;
-  private JButton btn_viewStudentsEdit;
-  private JButton btn_viewTeachersEdit;
-  private JButton btn_viewIntlStudentsEdit;
 
   public GUI() {
     initializeValues();
@@ -133,6 +147,7 @@ public class GUI {
         "South Africa", "Argentina", "Brazil", "United States of America"});
 
     defaultDeletionOptions = new DefaultComboBoxModel<String>();
+    defaultEditOptions = new DefaultComboBoxModel<String>();
   }
 
   public static void tempChangeLabel(JLabel label, String newText) {
@@ -203,7 +218,7 @@ public class GUI {
     }
   }
 
-  private void updateDeleteList(Class<?> cls, JComboBox<String> comboBox) {
+  private void updateComboBox(Class<?> cls, JComboBox<String> comboBox) {
     DefaultComboBoxModel<String> comboBoxModel =
         (DefaultComboBoxModel<String>)comboBox.getModel();
     comboBoxModel.removeAllElements();
@@ -335,7 +350,7 @@ public class GUI {
     btn_viewTeachersGoHome = new JButton("Go Home");
     btn_viewTeachersGoHome.setBounds(323, 9, 105, 22);
     panel_viewTeachers.add(btn_viewTeachersGoHome);
-    
+
     btn_viewTeachersEdit = new JButton("Edit Teacher");
     btn_viewTeachersEdit.setBounds(167, 232, 144, 27);
     panel_viewTeachers.add(btn_viewTeachersEdit);
@@ -523,7 +538,7 @@ public class GUI {
     btn_viewStudentsGoHome = new JButton("Go Home");
     btn_viewStudentsGoHome.setBounds(323, 9, 105, 22);
     panel_viewStudents.add(btn_viewStudentsGoHome);
-    
+
     btn_viewStudentsEdit = new JButton("Edit Student");
     btn_viewStudentsEdit.setBounds(165, 232, 132, 27);
     panel_viewStudents.add(btn_viewStudentsEdit);
@@ -555,7 +570,7 @@ public class GUI {
     btn_viewIntlStudentsGoHome = new JButton("Go Home");
     btn_viewIntlStudentsGoHome.setBounds(323, 9, 105, 22);
     panel_viewIntlStudents.add(btn_viewIntlStudentsGoHome);
-    
+
     btn_viewIntlStudentsEdit = new JButton("Edit Student");
     btn_viewIntlStudentsEdit.setBounds(165, 232, 132, 27);
     panel_viewIntlStudents.add(btn_viewIntlStudentsEdit);
@@ -642,6 +657,71 @@ public class GUI {
         new JLabel("Choose an international student to delete:");
     lbl_deleteIntlStudent.setBounds(91, 77, 252, 17);
     panel_deleteIntlStudent.add(lbl_deleteIntlStudent);
+
+    panel_editStudentSelection = new JPanel();
+    panel_editStudentSelection.setLayout(null);
+    frame.getContentPane().add(panel_editStudentSelection,
+                               "panel_editStudentSelection");
+
+    btn_editStudentSelectionCancel = new JButton("Cancel");
+    btn_editStudentSelectionCancel.setBounds(108, 231, 105, 27);
+    panel_editStudentSelection.add(btn_editStudentSelectionCancel);
+
+    btn_editStudentSelectionEdit = new JButton("Edit");
+    btn_editStudentSelectionEdit.setBounds(225, 231, 105, 27);
+    panel_editStudentSelection.add(btn_editStudentSelectionEdit);
+
+    comboBox_editStudentSelection = new JComboBox<String>(defaultEditOptions);
+    comboBox_editStudentSelection.setBounds(146, 109, 133, 26);
+    panel_editStudentSelection.add(comboBox_editStudentSelection);
+
+    lbl_editStudentSelection = new JLabel("Choose a student to edit:");
+    lbl_editStudentSelection.setBounds(126, 80, 171, 17);
+    panel_editStudentSelection.add(lbl_editStudentSelection);
+
+    panel_editTeacherSelection = new JPanel();
+    panel_editTeacherSelection.setLayout(null);
+    frame.getContentPane().add(panel_editTeacherSelection,
+                               "panel_editTeacherSelection");
+
+    btn_editTeacherSelectionCancel = new JButton("Cancel");
+    btn_editTeacherSelectionCancel.setBounds(108, 231, 105, 27);
+    panel_editTeacherSelection.add(btn_editTeacherSelectionCancel);
+
+    btn_editTeacherSelectionEdit = new JButton("Edit");
+    btn_editTeacherSelectionEdit.setBounds(225, 231, 105, 27);
+    panel_editTeacherSelection.add(btn_editTeacherSelectionEdit);
+
+    comboBox_editTeacherSelection = new JComboBox<String>(defaultEditOptions);
+    comboBox_editTeacherSelection.setBounds(146, 109, 133, 26);
+    panel_editTeacherSelection.add(comboBox_editTeacherSelection);
+
+    lbl_editTeacherSelection = new JLabel("Choose a teacher to edit:");
+    lbl_editTeacherSelection.setBounds(126, 80, 171, 17);
+    panel_editTeacherSelection.add(lbl_editTeacherSelection);
+
+    panel_editIntlStudentSelection = new JPanel();
+    panel_editIntlStudentSelection.setLayout(null);
+    frame.getContentPane().add(panel_editIntlStudentSelection,
+                               "panel_editIntlStudentSelection");
+
+    btn_editIntlStudentSelectionCancel = new JButton("Cancel");
+    btn_editIntlStudentSelectionCancel.setBounds(108, 231, 105, 27);
+    panel_editIntlStudentSelection.add(btn_editIntlStudentSelectionCancel);
+
+    btn_editIntlStudentSelectionEdit = new JButton("Edit");
+    btn_editIntlStudentSelectionEdit.setBounds(225, 231, 105, 27);
+    panel_editIntlStudentSelection.add(btn_editIntlStudentSelectionEdit);
+
+    comboBox_editIntlStudentSelection =
+        new JComboBox<String>(defaultEditOptions);
+    comboBox_editIntlStudentSelection.setBounds(146, 109, 133, 26);
+    panel_editIntlStudentSelection.add(comboBox_editIntlStudentSelection);
+
+    lbl_editIntlStudentSelectionCancel =
+        new JLabel("Choose an international student to edit:");
+    lbl_editIntlStudentSelectionCancel.setBounds(92, 77, 252, 17);
+    panel_editIntlStudentSelection.add(lbl_editIntlStudentSelectionCancel);
   }
 
   private void attachListeners() {
@@ -679,13 +759,25 @@ public class GUI {
       }
     });
 
+    btn_viewStudentsEdit.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        // if there are no students
+        if (Engine.getStudents().size() == 0) {
+          tempChangeLabel(btn_viewStudentsEdit, "No students yet!");
+        } else {
+          updateComboBox(Student.class, comboBox_editStudentSelection);
+          masterLayout.show(contentPane, "panel_editStudentSelection");
+        }
+      }
+    });
+
     btn_viewStudentsDelete.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         // if there are no students
         if (Engine.getStudents().size() == 0) {
           tempChangeLabel(btn_viewStudentsDelete, "No students yet!");
         } else {
-          updateDeleteList(Student.class, comboBox_deleteStudent);
+          updateComboBox(Student.class, comboBox_deleteStudent);
           masterLayout.show(contentPane, "panel_deleteStudent");
         }
       }
@@ -707,6 +799,49 @@ public class GUI {
           Engine.getStudents().add(
               new Student(textField_addStudentName.getText(),
                           (int)comboBox_addStudentGrade.getSelectedItem()));
+          updateViewTable(Student.class, table_viewStudents);
+          masterLayout.show(contentPane, "panel_viewStudents");
+        }
+      }
+    });
+
+    // listeners for the student edit selection screen
+
+    btn_editStudentSelectionEdit.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        currentlyEditingStudent =
+            comboBox_editStudentSelection.getSelectedIndex();
+        Student student = Engine.getStudents().get(currentlyEditingStudent);
+        textField_editStudentName.setText(student.getName());
+        comboBox_editStudentGrade.setSelectedItem((Object)student.getGrade());
+        masterLayout.show(contentPane, "panel_editStudent");
+      }
+    });
+
+    btn_editStudentCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewStudents");
+      }
+    });
+
+    // listeners for the edit student screen
+
+    btn_editStudentCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewStudents");
+      }
+    });
+
+    btn_editStudentSave.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        if (textField_editStudentName.getText().equals("")) {
+          tempChangeLabel(lbl_editStudentTitle, "Please enter a name!");
+        } else {
+          Student currentStudent =
+              Engine.getStudents().get(currentlyEditingStudent);
+          currentStudent.setName(textField_editStudentName.getText());
+          currentStudent.setGrade(
+              (int)comboBox_editStudentGrade.getSelectedItem());
           updateViewTable(Student.class, table_viewStudents);
           masterLayout.show(contentPane, "panel_viewStudents");
         }
@@ -744,13 +879,25 @@ public class GUI {
       }
     });
 
+    btn_viewTeachersEdit.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        // if there are no teachers
+        if (Engine.getTeachers().size() == 0) {
+          tempChangeLabel(btn_viewTeachersEdit, "No teachers yet!");
+        } else {
+          updateComboBox(Teacher.class, comboBox_editTeacherSelection);
+          masterLayout.show(contentPane, "panel_editTeacherSelection");
+        }
+      }
+    });
+
     btn_viewTeachersDelete.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         // if there are no teachers
         if (Engine.getTeachers().size() == 0) {
           tempChangeLabel(btn_viewTeachersDelete, "No teachers yet!");
         } else {
-          updateDeleteList(Teacher.class, comboBox_deleteTeacher);
+          updateComboBox(Teacher.class, comboBox_deleteTeacher);
           masterLayout.show(contentPane, "panel_deleteTeacher");
         }
       }
@@ -773,6 +920,54 @@ public class GUI {
               textField_addTeacherName.getText(),
               (String)comboBox_addTeacherSubject1.getSelectedItem(),
               (String)comboBox_addTeacherSubject2.getSelectedItem()));
+          updateViewTable(Teacher.class, table_viewTeachers);
+          masterLayout.show(contentPane, "panel_viewTeachers");
+        }
+      }
+    });
+
+    // listeners for the teacher edit selection screen
+
+    btn_editTeacherSelectionEdit.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        currentlyEditingTeacher =
+            comboBox_editTeacherSelection.getSelectedIndex();
+        Teacher teacher = Engine.getTeachers().get(currentlyEditingTeacher);
+        textField_editTeacherName.setText(teacher.getName());
+        comboBox_editTeacherSubject1.setSelectedItem(
+            (Object)teacher.getSubject1());
+        comboBox_editTeacherSubject1.setSelectedItem(
+            (Object)teacher.getSubject2());
+        masterLayout.show(contentPane, "panel_editTeacher");
+      }
+    });
+
+    btn_editTeacherCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewTeachers");
+      }
+    });
+
+    // listeners for the edit teacher screen
+
+    btn_editTeacherCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewTeachers");
+      }
+    });
+
+    btn_editTeacherSave.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        if (textField_editTeacherName.getText().equals("")) {
+          tempChangeLabel(lbl_editTeacherTitle, "Please enter a name!");
+        } else {
+          Teacher currentTeacher =
+              Engine.getTeachers().get(currentlyEditingTeacher);
+          currentTeacher.setName(textField_editTeacherName.getText());
+          currentTeacher.setSubject1(
+              (String)comboBox_editTeacherSubject1.getSelectedItem());
+          currentTeacher.setSubject2(
+              (String)comboBox_editTeacherSubject2.getSelectedItem());
           updateViewTable(Teacher.class, table_viewTeachers);
           masterLayout.show(contentPane, "panel_viewTeachers");
         }
@@ -810,14 +1005,27 @@ public class GUI {
       }
     });
 
+    btn_viewIntlStudentsEdit.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        // if there are no international students
+        if (Engine.getInternationalStudents().size() == 0) {
+          tempChangeLabel(btn_viewIntlStudentsEdit, "No students yet!");
+        } else {
+          updateComboBox(InternationalStudent.class,
+                         comboBox_editIntlStudentSelection);
+          masterLayout.show(contentPane, "panel_editIntlStudentSelection");
+        }
+      }
+    });
+
     btn_viewIntlStudentsDelete.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         // if there are no international students
         if (Engine.getInternationalStudents().size() == 0) {
           tempChangeLabel(btn_viewIntlStudentsDelete, "No students yet!");
         } else {
-          updateDeleteList(InternationalStudent.class,
-                           comboBox_deleteIntlStudent);
+          updateComboBox(InternationalStudent.class,
+                         comboBox_deleteIntlStudent);
           masterLayout.show(contentPane, "panel_deleteIntlStudent");
         }
       }
@@ -840,6 +1048,58 @@ public class GUI {
               textField_addIntlStudentName.getText(),
               (int)comboBox_addIntlStudentGrade.getSelectedItem(),
               (String)comboBox_addIntlStudentCountry.getSelectedItem()));
+          updateViewTable(InternationalStudent.class, table_viewIntlStudents);
+          masterLayout.show(contentPane, "panel_viewIntlStudents");
+        }
+      }
+    });
+
+    // listeners for the international student edit selection screen
+
+    btn_editIntlStudentSelectionEdit.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        currentlyEditingInternationalStudent =
+            comboBox_editIntlStudentSelection.getSelectedIndex();
+        InternationalStudent internationalStudent =
+            Engine.getInternationalStudents().get(
+                currentlyEditingInternationalStudent);
+        textField_editIntlStudentName.setText(internationalStudent.getName());
+        comboBox_editIntlStudentGrade.setSelectedItem(
+            (Object)internationalStudent.getGrade());
+        comboBox_addIntlStudentCountry.setSelectedItem(
+            (Object)internationalStudent.getCountry());
+        masterLayout.show(contentPane, "panel_editIntlStudent");
+      }
+    });
+
+    btn_editIntlStudentCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewInternationalStudents");
+      }
+    });
+
+    // listeners for the edit international student screen
+
+    btn_editIntlStudentCancel.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        masterLayout.show(contentPane, "panel_viewInternationalStudents");
+      }
+    });
+
+    btn_editIntlStudentSave.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        if (textField_editIntlStudentName.getText().equals("")) {
+          tempChangeLabel(lbl_editIntlStudentTitle, "Please enter a name!");
+        } else {
+          InternationalStudent currentInternationalStudent =
+              Engine.getInternationalStudents().get(
+                  currentlyEditingInternationalStudent);
+          currentInternationalStudent.setName(
+              textField_editStudentName.getText());
+          currentInternationalStudent.setGrade(
+              (int)comboBox_addIntlStudentGrade.getSelectedItem());
+          currentInternationalStudent.setCountry(
+              (String)comboBox_editIntlStudentCountry.getSelectedItem());
           updateViewTable(InternationalStudent.class, table_viewIntlStudents);
           masterLayout.show(contentPane, "panel_viewIntlStudents");
         }
@@ -874,6 +1134,4 @@ public class GUI {
       }
     });
   }
-
-  public JFrame getFrame() { return frame; }
 }
