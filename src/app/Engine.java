@@ -39,9 +39,9 @@ public class Engine {
     try {
       // create the new file if it doesn't exist
       final File studentFile = new File("data/student_logs.txt"),
-           teacherFile = new File("data/teacher_logs.txt"),
-           internationalStudentFile =
-               new File("data/international_student_logs.txt");
+                 teacherFile = new File("data/teacher_logs.txt"),
+                 internationalStudentFile =
+                     new File("data/international_student_logs.txt");
 
       studentFile.delete();
       teacherFile.delete();
@@ -78,7 +78,8 @@ public class Engine {
         teacherWriter.println(content);
       }
 
-      for (final InternationalStudent internationalStudent : internationalStudents) {
+      for (final InternationalStudent internationalStudent :
+           internationalStudents) {
         final String content = String.format(
             "%s,%d,%s", internationalStudent.getName(),
             internationalStudent.getGrade(), internationalStudent.getCountry());
@@ -99,9 +100,9 @@ public class Engine {
     try {
       // create the new file if it doesn't exist
       final File studentFile = new File("data/student_logs.txt"),
-           teacherFile = new File("data/teacher_logs.txt"),
-           internationalStudentFile =
-               new File("data/international_student_logs.txt");
+                 teacherFile = new File("data/teacher_logs.txt"),
+                 internationalStudentFile =
+                     new File("data/international_student_logs.txt");
 
       if (studentFile.exists()) {
         final BufferedReader studentReader =

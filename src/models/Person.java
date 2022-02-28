@@ -3,7 +3,7 @@ package models;
 public class Person {
   private String name;
 
-  public Person(String name) { this.name = name; }
+  public Person(final String name) { this.name = name; }
 
   public Person() {}
 
@@ -13,5 +13,5 @@ public class Person {
 
   public String getName() { return name; }
 
-  public void setName(String name) { this.name = name; }
+  public void setName(final String name) { this.name = name; }
 }

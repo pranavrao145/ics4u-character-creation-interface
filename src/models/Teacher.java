@@ -3,7 +3,8 @@ package models;
 public class Teacher extends Person {
   private String subject1, subject2;
 
-  public Teacher(String name, String subject1, String subject2) {
+  public Teacher(final String name, final String subject1,
+                 final String subject2) {
     super(name);
     this.subject1 = subject1;
     this.subject2 = subject2;
@@ -18,7 +19,7 @@ public class Teacher extends Person {
 
   public String getSubject2() { return subject2; }
 
-  public void setSubject2(String subject2) { this.subject2 = subject2; }
+  public void setSubject2(final String subject2) { this.subject2 = subject2; }
 
-  public void setSubject1(String subject1) { this.subject1 = subject1; }
+  public void setSubject1(final String subject1) { this.subject1 = subject1; }
 }

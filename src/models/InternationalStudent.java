@@ -3,7 +3,8 @@ package models;
 public class InternationalStudent extends Student {
   private String country;
 
-  public InternationalStudent(String name, int grade, String country) {
+  public InternationalStudent(final String name, final int grade,
+                              final String country) {
     super(name, grade);
     this.country = country;
   }
@@ -15,5 +16,5 @@ public class InternationalStudent extends Student {
 
   public String getCountry() { return country; }
 
-  public void setCountry(String country) { this.country = country; }
+  public void setCountry(final String country) { this.country = country; }
 }

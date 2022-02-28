@@ -158,40 +158,43 @@ public class GUI {
     final String oldText = label.getText();
     label.setText(newText);
 
-    final SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
-      @Override
-      protected Object doInBackground() throws Exception {
-        Thread.sleep(1000);
-        return null;
-      }
+    final SwingWorker<Object, Object> worker =
+        new SwingWorker<Object, Object>() {
+          @Override
+          protected Object doInBackground() throws Exception {
+            Thread.sleep(1000);
+            return null;
+          }
 
-      @Override
-      protected void done() {
-        label.setText(oldText);
-        super.done();
-      }
-    };
+          @Override
+          protected void done() {
+            label.setText(oldText);
+            super.done();
+          }
+        };
 
     worker.execute();
   }
 
-  public static void tempChangeLabel(final JButton button, final String newText) {
+  public static void tempChangeLabel(final JButton button,
+                                     final String newText) {
     final String oldText = button.getText();
     button.setText(newText);
 
-    final SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
-      @Override
-      protected Object doInBackground() throws Exception {
-        Thread.sleep(1000);
-        return null;
-      }
+    final SwingWorker<Object, Object> worker =
+        new SwingWorker<Object, Object>() {
+          @Override
+          protected Object doInBackground() throws Exception {
+            Thread.sleep(1000);
+            return null;
+          }
 
-      @Override
-      protected void done() {
-        button.setText(oldText);
-        super.done();
-      }
-    };
+          @Override
+          protected void done() {
+            button.setText(oldText);
+            super.done();
+          }
+        };
 
     worker.execute();
   }
@@ -222,7 +225,8 @@ public class GUI {
     }
   }
 
-  private void updateComboBox(final Class<?> cls, final JComboBox<String> comboBox) {
+  private void updateComboBox(final Class<?> cls,
+                              final JComboBox<String> comboBox) {
     final DefaultComboBoxModel<String> comboBoxModel =
         (DefaultComboBoxModel<String>)comboBox.getModel();
     comboBoxModel.removeAllElements();
@@ -732,18 +736,21 @@ public class GUI {
     // listeners for the home screen
 
     btn_homeStudent.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
 
     btn_homeTeacher.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
 
     btn_homeIntlStudent.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewIntlStudents");
       }
@@ -752,18 +759,21 @@ public class GUI {
     // listners for the view students screen
 
     btn_viewStudentsGoHome.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_home");
       }
     });
 
     btn_viewStudentsCreate.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_addStudent");
       }
     });
 
     btn_viewStudentsEdit.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         // if there are no students
         if (Engine.getStudents().size() == 0) {
@@ -776,6 +786,7 @@ public class GUI {
     });
 
     btn_viewStudentsDelete.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         // if there are no students
         if (Engine.getStudents().size() == 0) {
@@ -790,12 +801,14 @@ public class GUI {
     // listeners for the add student screen
 
     btn_addStudentCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
 
     btn_addStudentSave.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         if (textField_addStudentName.getText().equals("")) {
           tempChangeLabel(lbl_addStudentTitle, "Please enter a name!");
@@ -812,10 +825,12 @@ public class GUI {
     // listeners for the student edit selection screen
 
     btn_editStudentSelectionEdit.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         currentlyEditingStudent =
             comboBox_editStudentSelection.getSelectedIndex();
-        final Student student = Engine.getStudents().get(currentlyEditingStudent);
+        final Student student =
+            Engine.getStudents().get(currentlyEditingStudent);
         textField_editStudentName.setText(student.getName());
         comboBox_editStudentGrade.setSelectedItem((Object)student.getGrade());
         masterLayout.show(contentPane, "panel_editStudent");
@@ -823,6 +838,7 @@ public class GUI {
     });
 
     btn_editStudentSelectionCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
       }
@@ -831,12 +847,14 @@ public class GUI {
     // listeners for the edit student screen
 
     btn_editStudentCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
 
     btn_editStudentSave.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         if (textField_editStudentName.getText().equals("")) {
           tempChangeLabel(lbl_editStudentTitle, "Please enter a name!");
@@ -855,12 +873,14 @@ public class GUI {
     // listeners for the delete student screen
 
     btn_deleteStudentCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
 
     btn_deleteStudentDelete.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         final int index = comboBox_deleteStudent.getSelectedIndex();
         Engine.getStudents().remove(Engine.getStudents().get(index));
@@ -872,18 +892,21 @@ public class GUI {
     // listners for the view teachers screen
 
     btn_viewTeachersGoHome.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_home");
       }
     });
 
     btn_viewTeachersCreate.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_addTeacher");
       }
     });
 
     btn_viewTeachersEdit.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         // if there are no teachers
         if (Engine.getTeachers().size() == 0) {
@@ -896,6 +919,7 @@ public class GUI {
     });
 
     btn_viewTeachersDelete.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         // if there are no teachers
         if (Engine.getTeachers().size() == 0) {
@@ -910,12 +934,14 @@ public class GUI {
     // listeners for the add teacher screen
 
     btn_addTeacherCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
 
     btn_addTeacherSave.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         if (textField_addTeacherName.getText().equals("")) {
           tempChangeLabel(lbl_addTeacherTitle, "Please enter a name!");
@@ -933,10 +959,12 @@ public class GUI {
     // listeners for the teacher edit selection screen
 
     btn_editTeacherSelectionEdit.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         currentlyEditingTeacher =
             comboBox_editTeacherSelection.getSelectedIndex();
-        final Teacher teacher = Engine.getTeachers().get(currentlyEditingTeacher);
+        final Teacher teacher =
+            Engine.getTeachers().get(currentlyEditingTeacher);
         textField_editTeacherName.setText(teacher.getName());
         comboBox_editTeacherSubject1.setSelectedItem(
             (Object)teacher.getSubject1());
@@ -947,6 +975,7 @@ public class GUI {
     });
 
     btn_editTeacherSelectionCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
@@ -955,12 +984,14 @@ public class GUI {
     // listeners for the edit teacher screen
 
     btn_editTeacherCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
 
     btn_editTeacherSave.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         if (textField_editTeacherName.getText().equals("")) {
           tempChangeLabel(lbl_editTeacherTitle, "Please enter a name!");
@@ -981,12 +1012,14 @@ public class GUI {
     // listeners for the delete teacher screen
 
     btn_deleteTeacherCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
 
     btn_deleteTeacherDelete.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         final int index = comboBox_deleteTeacher.getSelectedIndex();
         Engine.getTeachers().remove(Engine.getTeachers().get(index));
@@ -998,18 +1031,21 @@ public class GUI {
     // listeners for the view international students screen
 
     btn_viewIntlStudentsGoHome.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_home");
       }
     });
 
     btn_viewIntlStudentsCreate.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_addIntlStudent");
       }
     });
 
     btn_viewIntlStudentsEdit.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         // if there are no international students
         if (Engine.getInternationalStudents().size() == 0) {
@@ -1023,6 +1059,7 @@ public class GUI {
     });
 
     btn_viewIntlStudentsDelete.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         // if there are no international students
         if (Engine.getInternationalStudents().size() == 0) {
@@ -1038,12 +1075,14 @@ public class GUI {
     // listeners for the add international students screen
 
     btn_addIntlStudentCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewIntlStudents");
       }
     });
 
     btn_addIntlStudentSave.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         if (textField_addIntlStudentName.getText().equals("")) {
           tempChangeLabel(lbl_addIntlStudentTitle, "Please enter a name!");
@@ -1061,6 +1100,7 @@ public class GUI {
     // listeners for the international student edit selection screen
 
     btn_editIntlStudentSelectionEdit.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         currentlyEditingInternationalStudent =
             comboBox_editIntlStudentSelection.getSelectedIndex();
@@ -1077,6 +1117,7 @@ public class GUI {
     });
 
     btn_editIntlStudentSelectionCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewInternationalStudents");
       }
@@ -1085,12 +1126,14 @@ public class GUI {
     // listeners for the edit international student screen
 
     btn_editIntlStudentCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewInternationalStudents");
       }
     });
 
     btn_editIntlStudentSave.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         if (textField_editIntlStudentName.getText().equals("")) {
           tempChangeLabel(lbl_editIntlStudentTitle, "Please enter a name!");
@@ -1113,12 +1156,14 @@ public class GUI {
     // listeners for the delete international students screen
 
     btn_deleteIntlStudentCancel.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewIntlStudents");
       }
     });
 
     btn_deleteIntlStudentDelete.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent e) {
         final int index = comboBox_deleteIntlStudent.getSelectedIndex();
         Engine.getInternationalStudents().remove(

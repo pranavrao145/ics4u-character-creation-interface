@@ -3,7 +3,7 @@ package models;
 public class Student extends Person {
   private int grade;
 
-  public Student(String name, int grade) {
+  public Student(final String name, final int grade) {
     super(name);
     this.grade = grade;
   }
@@ -15,5 +15,5 @@ public class Student extends Person {
 
   public int getGrade() { return grade; }
 
-  public void setGrade(int grade) { this.grade = grade; }
+  public void setGrade(final int grade) { this.grade = grade; }
 }
