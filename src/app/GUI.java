@@ -105,6 +105,9 @@ public class GUI {
   DefaultComboBoxModel<String> subject1Options, subject2Options, countryOptions,
       defaultDeletionOptions;
   DefaultComboBoxModel<Integer> gradeOptions;
+  private JButton btn_viewStudentsEdit;
+  private JButton btn_viewTeachersEdit;
+  private JButton btn_viewIntlStudentsEdit;
 
   public GUI() {
     initializeValues();
@@ -322,16 +325,20 @@ public class GUI {
     panel_viewTeachers.add(lbl_viewTeachersTitle);
 
     btn_viewTeachersCreate = new JButton("Create New Teacher");
-    btn_viewTeachersCreate.setBounds(225, 232, 203, 27);
+    btn_viewTeachersCreate.setBounds(12, 232, 153, 27);
     panel_viewTeachers.add(btn_viewTeachersCreate);
 
     btn_viewTeachersDelete = new JButton("Delete Teacher");
-    btn_viewTeachersDelete.setBounds(12, 232, 201, 27);
+    btn_viewTeachersDelete.setBounds(313, 232, 123, 27);
     panel_viewTeachers.add(btn_viewTeachersDelete);
 
     btn_viewTeachersGoHome = new JButton("Go Home");
     btn_viewTeachersGoHome.setBounds(323, 9, 105, 22);
     panel_viewTeachers.add(btn_viewTeachersGoHome);
+    
+    btn_viewTeachersEdit = new JButton("Edit Teacher");
+    btn_viewTeachersEdit.setBounds(167, 232, 144, 27);
+    panel_viewTeachers.add(btn_viewTeachersEdit);
 
     panel_addIntlStudent = new JPanel();
     panel_addIntlStudent.setLayout(null);
@@ -506,16 +513,20 @@ public class GUI {
     panel_viewStudents.add(lbl_viewStudentsTitle);
 
     btn_viewStudentsCreate = new JButton("Create New Student");
-    btn_viewStudentsCreate.setBounds(225, 232, 203, 27);
+    btn_viewStudentsCreate.setBounds(10, 232, 154, 27);
     panel_viewStudents.add(btn_viewStudentsCreate);
 
     btn_viewStudentsDelete = new JButton("Delete Student");
-    btn_viewStudentsDelete.setBounds(12, 232, 201, 27);
+    btn_viewStudentsDelete.setBounds(298, 232, 130, 27);
     panel_viewStudents.add(btn_viewStudentsDelete);
 
     btn_viewStudentsGoHome = new JButton("Go Home");
     btn_viewStudentsGoHome.setBounds(323, 9, 105, 22);
     panel_viewStudents.add(btn_viewStudentsGoHome);
+    
+    btn_viewStudentsEdit = new JButton("Edit Student");
+    btn_viewStudentsEdit.setBounds(165, 232, 132, 27);
+    panel_viewStudents.add(btn_viewStudentsEdit);
 
     panel_viewIntlStudents = new JPanel();
     panel_viewIntlStudents.setLayout(null);
@@ -534,16 +545,20 @@ public class GUI {
     panel_viewIntlStudents.add(lbl_viewIntlStudentsTitle);
 
     btn_viewIntlStudentsCreate = new JButton("Create New Student");
-    btn_viewIntlStudentsCreate.setBounds(225, 232, 203, 27);
+    btn_viewIntlStudentsCreate.setBounds(10, 232, 154, 27);
     panel_viewIntlStudents.add(btn_viewIntlStudentsCreate);
 
     btn_viewIntlStudentsDelete = new JButton("Delete Student");
-    btn_viewIntlStudentsDelete.setBounds(12, 232, 201, 27);
+    btn_viewIntlStudentsDelete.setBounds(298, 232, 130, 27);
     panel_viewIntlStudents.add(btn_viewIntlStudentsDelete);
 
     btn_viewIntlStudentsGoHome = new JButton("Go Home");
     btn_viewIntlStudentsGoHome.setBounds(323, 9, 105, 22);
     panel_viewIntlStudents.add(btn_viewIntlStudentsGoHome);
+    
+    btn_viewIntlStudentsEdit = new JButton("Edit Student");
+    btn_viewIntlStudentsEdit.setBounds(165, 232, 132, 27);
+    panel_viewIntlStudents.add(btn_viewIntlStudentsEdit);
 
     panel_home = new JPanel();
     contentPane.add(panel_home, "panel_home");
