@@ -7,6 +7,10 @@ public class Person {
 
   public Person() {}
 
+  public String describe() {
+    return "Generic Person model, containing just a name.";
+  }
+
   public String getName() { return name; }
 
   public void setName(String name) { this.name = name; }
