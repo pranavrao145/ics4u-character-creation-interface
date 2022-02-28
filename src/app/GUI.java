@@ -192,7 +192,7 @@ public class GUI {
     worker.execute();
   }
 
-  private void updateViewTable(Class<?> cls, JTable table) {
+  public void updateViewTable(Class<?> cls, JTable table) {
     DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
     tableModel.getDataVector().removeAllElements();
 
@@ -246,7 +246,7 @@ public class GUI {
 
     frame.setResizable(false);
     frame.setBounds(100, 100, 450, 300);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     contentPane.setLayout(masterLayout);
 
     panel_editStudent = new JPanel();
@@ -818,7 +818,7 @@ public class GUI {
       }
     });
 
-    btn_editStudentCancel.addActionListener(new ActionListener() {
+    btn_editStudentSelectionCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
       }
@@ -942,7 +942,7 @@ public class GUI {
       }
     });
 
-    btn_editTeacherCancel.addActionListener(new ActionListener() {
+    btn_editTeacherSelectionCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
@@ -1072,7 +1072,7 @@ public class GUI {
       }
     });
 
-    btn_editIntlStudentCancel.addActionListener(new ActionListener() {
+    btn_editIntlStudentSelectionCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewInternationalStudents");
       }
@@ -1134,4 +1134,12 @@ public class GUI {
       }
     });
   }
+
+  // getters and setters
+
+  public JTable getTableViewStudents() { return table_viewStudents; }
+
+  public JTable getTableViewTeachers() { return table_viewTeachers; }
+
+  public JTable getTableViewIntlStudents() { return table_viewIntlStudents; }
 }
