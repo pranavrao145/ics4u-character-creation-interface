@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,7 +17,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
-import models.*;
+
+import models.InternationalStudent;
+import models.Student;
+import models.Teacher;
 
 public class GUI {
   private JFrame frame;
@@ -150,11 +154,11 @@ public class GUI {
     defaultEditOptions = new DefaultComboBoxModel<String>();
   }
 
-  public static void tempChangeLabel(JLabel label, String newText) {
-    String oldText = label.getText();
+  public static void tempChangeLabel(final JLabel label, final String newText) {
+    final String oldText = label.getText();
     label.setText(newText);
 
-    SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
+    final SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
       @Override
       protected Object doInBackground() throws Exception {
         Thread.sleep(1000);
@@ -171,11 +175,11 @@ public class GUI {
     worker.execute();
   }
 
-  public static void tempChangeLabel(JButton button, String newText) {
-    String oldText = button.getText();
+  public static void tempChangeLabel(final JButton button, final String newText) {
+    final String oldText = button.getText();
     button.setText(newText);
 
-    SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
+    final SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
       @Override
       protected Object doInBackground() throws Exception {
         Thread.sleep(1000);
@@ -192,24 +196,24 @@ public class GUI {
     worker.execute();
   }
 
-  public void updateViewTable(Class<?> cls, JTable table) {
-    DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
+  public void updateViewTable(final Class<?> cls, final JTable table) {
+    final DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
     tableModel.getDataVector().removeAllElements();
 
     if (cls == Student.class) {
       tableModel.addRow(new Object[] {"Name", "Grade"});
-      for (Student student : Engine.getStudents()) {
+      for (final Student student : Engine.getStudents()) {
         tableModel.addRow(new Object[] {student.getName(), student.getGrade()});
       }
     } else if (cls == Teacher.class) {
       tableModel.addRow(new Object[] {"Name", "Subject 1", "Subject 2"});
-      for (Teacher teacher : Engine.getTeachers()) {
+      for (final Teacher teacher : Engine.getTeachers()) {
         tableModel.addRow(new Object[] {
             teacher.getName(), teacher.getSubject1(), teacher.getSubject2()});
       }
     } else if (cls == InternationalStudent.class) {
       tableModel.addRow(new Object[] {"Name", "Grade", "Country"});
-      for (InternationalStudent internationalStudent :
+      for (final InternationalStudent internationalStudent :
            Engine.getInternationalStudents()) {
         tableModel.addRow(new Object[] {internationalStudent.getName(),
                                         internationalStudent.getGrade(),
@@ -218,21 +222,21 @@ public class GUI {
     }
   }
 
-  private void updateComboBox(Class<?> cls, JComboBox<String> comboBox) {
-    DefaultComboBoxModel<String> comboBoxModel =
+  private void updateComboBox(final Class<?> cls, final JComboBox<String> comboBox) {
+    final DefaultComboBoxModel<String> comboBoxModel =
         (DefaultComboBoxModel<String>)comboBox.getModel();
     comboBoxModel.removeAllElements();
 
     if (cls == Student.class) {
-      for (Student student : Engine.getStudents()) {
+      for (final Student student : Engine.getStudents()) {
         comboBoxModel.addElement(student.getName());
       }
     } else if (cls == Teacher.class) {
-      for (Teacher teacher : Engine.getTeachers()) {
+      for (final Teacher teacher : Engine.getTeachers()) {
         comboBoxModel.addElement(teacher.getName());
       }
     } else if (cls == InternationalStudent.class) {
-      for (InternationalStudent internationalstudent :
+      for (final InternationalStudent internationalstudent :
            Engine.getInternationalStudents()) {
         comboBoxModel.addElement(internationalstudent.getName());
       }
@@ -327,7 +331,7 @@ public class GUI {
     panel_viewTeachers.setLayout(null);
     contentPane.add(panel_viewTeachers, "panel_viewTeachers");
 
-    DefaultTableModel viewTeacherModel = new DefaultTableModel(
+    final DefaultTableModel viewTeacherModel = new DefaultTableModel(
         new Object[] {"Name", "Subject 1", "Subject 2"}, 0);
     table_viewTeachers = new JTable(viewTeacherModel);
     viewTeacherModel.addRow(new Object[] {"Name", "Subject 1", "Subject 2"});
@@ -515,7 +519,7 @@ public class GUI {
     panel_viewStudents.setLayout(null);
     contentPane.add(panel_viewStudents, "panel_viewStudents");
 
-    DefaultTableModel viewStudentsModel =
+    final DefaultTableModel viewStudentsModel =
         new DefaultTableModel(new Object[] {"Name", "Grade"}, 0);
     table_viewStudents = new JTable(viewStudentsModel);
     viewStudentsModel.addRow(new Object[] {"Name", "Grade"});
@@ -547,7 +551,7 @@ public class GUI {
     panel_viewIntlStudents.setLayout(null);
     contentPane.add(panel_viewIntlStudents, "panel_viewIntlStudents");
 
-    DefaultTableModel viewIntlStudentsModel =
+    final DefaultTableModel viewIntlStudentsModel =
         new DefaultTableModel(new Object[] {"Name", "Grade", "Country"}, 0);
     table_viewIntlStudents = new JTable(viewIntlStudentsModel);
     viewIntlStudentsModel.addRow(new Object[] {"Name", "Grade", "Country"});
@@ -728,19 +732,19 @@ public class GUI {
     // listeners for the home screen
 
     btn_homeStudent.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
 
     btn_homeTeacher.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
 
     btn_homeIntlStudent.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewIntlStudents");
       }
     });
@@ -748,19 +752,19 @@ public class GUI {
     // listners for the view students screen
 
     btn_viewStudentsGoHome.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_home");
       }
     });
 
     btn_viewStudentsCreate.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_addStudent");
       }
     });
 
     btn_viewStudentsEdit.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         // if there are no students
         if (Engine.getStudents().size() == 0) {
           tempChangeLabel(btn_viewStudentsEdit, "No students yet!");
@@ -772,7 +776,7 @@ public class GUI {
     });
 
     btn_viewStudentsDelete.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         // if there are no students
         if (Engine.getStudents().size() == 0) {
           tempChangeLabel(btn_viewStudentsDelete, "No students yet!");
@@ -786,13 +790,13 @@ public class GUI {
     // listeners for the add student screen
 
     btn_addStudentCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
 
     btn_addStudentSave.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         if (textField_addStudentName.getText().equals("")) {
           tempChangeLabel(lbl_addStudentTitle, "Please enter a name!");
         } else {
@@ -808,10 +812,10 @@ public class GUI {
     // listeners for the student edit selection screen
 
     btn_editStudentSelectionEdit.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         currentlyEditingStudent =
             comboBox_editStudentSelection.getSelectedIndex();
-        Student student = Engine.getStudents().get(currentlyEditingStudent);
+        final Student student = Engine.getStudents().get(currentlyEditingStudent);
         textField_editStudentName.setText(student.getName());
         comboBox_editStudentGrade.setSelectedItem((Object)student.getGrade());
         masterLayout.show(contentPane, "panel_editStudent");
@@ -819,7 +823,7 @@ public class GUI {
     });
 
     btn_editStudentSelectionCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
@@ -827,17 +831,17 @@ public class GUI {
     // listeners for the edit student screen
 
     btn_editStudentCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
 
     btn_editStudentSave.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         if (textField_editStudentName.getText().equals("")) {
           tempChangeLabel(lbl_editStudentTitle, "Please enter a name!");
         } else {
-          Student currentStudent =
+          final Student currentStudent =
               Engine.getStudents().get(currentlyEditingStudent);
           currentStudent.setName(textField_editStudentName.getText());
           currentStudent.setGrade(
@@ -851,14 +855,14 @@ public class GUI {
     // listeners for the delete student screen
 
     btn_deleteStudentCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
 
     btn_deleteStudentDelete.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        int index = comboBox_deleteStudent.getSelectedIndex();
+      public void actionPerformed(final ActionEvent e) {
+        final int index = comboBox_deleteStudent.getSelectedIndex();
         Engine.getStudents().remove(Engine.getStudents().get(index));
         updateViewTable(Student.class, table_viewStudents);
         masterLayout.show(contentPane, "panel_viewStudents");
@@ -868,19 +872,19 @@ public class GUI {
     // listners for the view teachers screen
 
     btn_viewTeachersGoHome.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_home");
       }
     });
 
     btn_viewTeachersCreate.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_addTeacher");
       }
     });
 
     btn_viewTeachersEdit.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         // if there are no teachers
         if (Engine.getTeachers().size() == 0) {
           tempChangeLabel(btn_viewTeachersEdit, "No teachers yet!");
@@ -892,7 +896,7 @@ public class GUI {
     });
 
     btn_viewTeachersDelete.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         // if there are no teachers
         if (Engine.getTeachers().size() == 0) {
           tempChangeLabel(btn_viewTeachersDelete, "No teachers yet!");
@@ -906,13 +910,13 @@ public class GUI {
     // listeners for the add teacher screen
 
     btn_addTeacherCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
 
     btn_addTeacherSave.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         if (textField_addTeacherName.getText().equals("")) {
           tempChangeLabel(lbl_addTeacherTitle, "Please enter a name!");
         } else {
@@ -929,10 +933,10 @@ public class GUI {
     // listeners for the teacher edit selection screen
 
     btn_editTeacherSelectionEdit.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         currentlyEditingTeacher =
             comboBox_editTeacherSelection.getSelectedIndex();
-        Teacher teacher = Engine.getTeachers().get(currentlyEditingTeacher);
+        final Teacher teacher = Engine.getTeachers().get(currentlyEditingTeacher);
         textField_editTeacherName.setText(teacher.getName());
         comboBox_editTeacherSubject1.setSelectedItem(
             (Object)teacher.getSubject1());
@@ -943,7 +947,7 @@ public class GUI {
     });
 
     btn_editTeacherSelectionCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
@@ -951,17 +955,17 @@ public class GUI {
     // listeners for the edit teacher screen
 
     btn_editTeacherCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
 
     btn_editTeacherSave.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         if (textField_editTeacherName.getText().equals("")) {
           tempChangeLabel(lbl_editTeacherTitle, "Please enter a name!");
         } else {
-          Teacher currentTeacher =
+          final Teacher currentTeacher =
               Engine.getTeachers().get(currentlyEditingTeacher);
           currentTeacher.setName(textField_editTeacherName.getText());
           currentTeacher.setSubject1(
@@ -977,14 +981,14 @@ public class GUI {
     // listeners for the delete teacher screen
 
     btn_deleteTeacherCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
 
     btn_deleteTeacherDelete.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        int index = comboBox_deleteTeacher.getSelectedIndex();
+      public void actionPerformed(final ActionEvent e) {
+        final int index = comboBox_deleteTeacher.getSelectedIndex();
         Engine.getTeachers().remove(Engine.getTeachers().get(index));
         updateViewTable(Teacher.class, table_viewTeachers);
         masterLayout.show(contentPane, "panel_viewTeachers");
@@ -994,19 +998,19 @@ public class GUI {
     // listeners for the view international students screen
 
     btn_viewIntlStudentsGoHome.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_home");
       }
     });
 
     btn_viewIntlStudentsCreate.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_addIntlStudent");
       }
     });
 
     btn_viewIntlStudentsEdit.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         // if there are no international students
         if (Engine.getInternationalStudents().size() == 0) {
           tempChangeLabel(btn_viewIntlStudentsEdit, "No students yet!");
@@ -1019,7 +1023,7 @@ public class GUI {
     });
 
     btn_viewIntlStudentsDelete.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         // if there are no international students
         if (Engine.getInternationalStudents().size() == 0) {
           tempChangeLabel(btn_viewIntlStudentsDelete, "No students yet!");
@@ -1034,13 +1038,13 @@ public class GUI {
     // listeners for the add international students screen
 
     btn_addIntlStudentCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewIntlStudents");
       }
     });
 
     btn_addIntlStudentSave.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         if (textField_addIntlStudentName.getText().equals("")) {
           tempChangeLabel(lbl_addIntlStudentTitle, "Please enter a name!");
         } else {
@@ -1057,10 +1061,10 @@ public class GUI {
     // listeners for the international student edit selection screen
 
     btn_editIntlStudentSelectionEdit.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         currentlyEditingInternationalStudent =
             comboBox_editIntlStudentSelection.getSelectedIndex();
-        InternationalStudent internationalStudent =
+        final InternationalStudent internationalStudent =
             Engine.getInternationalStudents().get(
                 currentlyEditingInternationalStudent);
         textField_editIntlStudentName.setText(internationalStudent.getName());
@@ -1073,7 +1077,7 @@ public class GUI {
     });
 
     btn_editIntlStudentSelectionCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewInternationalStudents");
       }
     });
@@ -1081,17 +1085,17 @@ public class GUI {
     // listeners for the edit international student screen
 
     btn_editIntlStudentCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewInternationalStudents");
       }
     });
 
     btn_editIntlStudentSave.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         if (textField_editIntlStudentName.getText().equals("")) {
           tempChangeLabel(lbl_editIntlStudentTitle, "Please enter a name!");
         } else {
-          InternationalStudent currentInternationalStudent =
+          final InternationalStudent currentInternationalStudent =
               Engine.getInternationalStudents().get(
                   currentlyEditingInternationalStudent);
           currentInternationalStudent.setName(
@@ -1109,14 +1113,14 @@ public class GUI {
     // listeners for the delete international students screen
 
     btn_deleteIntlStudentCancel.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewIntlStudents");
       }
     });
 
     btn_deleteIntlStudentDelete.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        int index = comboBox_deleteIntlStudent.getSelectedIndex();
+      public void actionPerformed(final ActionEvent e) {
+        final int index = comboBox_deleteIntlStudent.getSelectedIndex();
         Engine.getInternationalStudents().remove(
             Engine.getInternationalStudents().get(index));
         updateViewTable(InternationalStudent.class, table_viewIntlStudents);
@@ -1127,7 +1131,7 @@ public class GUI {
     // listener for when the window closes
     frame.addWindowListener(new WindowAdapter() {
       @Override
-      public void windowClosing(WindowEvent e) {
+      public void windowClosing(final WindowEvent e) {
         Engine.saveDataToFile();
         frame.dispose();
         System.exit(0);
