@@ -102,7 +102,7 @@ public class GUI {
   private JLabel lbl_deleteIntlStudent;
   private JComboBox<String> comboBox_deleteIntlStudent;
 
-  DefaultComboBoxModel<String> subjectOptions, countryOptions,
+  DefaultComboBoxModel<String> subject1Options, subject2Options, countryOptions,
       defaultDeletionOptions;
   DefaultComboBoxModel<Integer> gradeOptions;
 
@@ -114,7 +114,11 @@ public class GUI {
   }
 
   private void initializeValues() {
-    subjectOptions = new DefaultComboBoxModel<String>(
+    subject1Options = new DefaultComboBoxModel<String>(
+        new String[] {"Math", "Business", "Computer Science", "English",
+                      "Phys Ed", "Science"});
+
+    subject2Options = new DefaultComboBoxModel<String>(
         new String[] {"Math", "Business", "Computer Science", "English",
                       "Phys Ed", "Science"});
 
@@ -293,11 +297,11 @@ public class GUI {
     lbl_addTeacherSubject2.setBounds(12, 176, 81, 17);
     panel_addTeacher.add(lbl_addTeacherSubject2);
 
-    comboBox_addTeacherSubject1 = new JComboBox<String>(subjectOptions);
+    comboBox_addTeacherSubject1 = new JComboBox<String>(subject1Options);
     comboBox_addTeacherSubject1.setBounds(88, 107, 107, 26);
     panel_addTeacher.add(comboBox_addTeacherSubject1);
 
-    comboBox_addTeacherSubject2 = new JComboBox<String>(subjectOptions);
+    comboBox_addTeacherSubject2 = new JComboBox<String>(subject2Options);
     comboBox_addTeacherSubject2.setBounds(88, 171, 107, 26);
     panel_addTeacher.add(comboBox_addTeacherSubject2);
 
@@ -436,11 +440,11 @@ public class GUI {
     lbl_editTeacherSubject2.setBounds(12, 176, 81, 17);
     panel_editTeacher.add(lbl_editTeacherSubject2);
 
-    comboBox_editTeacherSubject1 = new JComboBox<String>(subjectOptions);
+    comboBox_editTeacherSubject1 = new JComboBox<String>(subject1Options);
     comboBox_editTeacherSubject1.setBounds(88, 107, 107, 26);
     panel_editTeacher.add(comboBox_editTeacherSubject1);
 
-    comboBox_editTeacherSubject2 = new JComboBox<String>(subjectOptions);
+    comboBox_editTeacherSubject2 = new JComboBox<String>(subject2Options);
     comboBox_editTeacherSubject2.setBounds(88, 171, 107, 26);
     panel_editTeacher.add(comboBox_editTeacherSubject2);
 
