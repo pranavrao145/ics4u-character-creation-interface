@@ -5,7 +5,7 @@ public class Person {
 
   public Person(final String name) { this.name = name; }
 
-  public Person() {}
+  public Person() { this.name = "no_name"; }
 
   public String describe() {
     return "Generic Person model, containing just a name.";

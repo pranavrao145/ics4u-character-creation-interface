@@ -9,6 +9,11 @@ public class InternationalStudent extends Student {
     this.country = country;
   }
 
+  public InternationalStudent() {
+    super();
+    this.country = "Canada";
+  }
+
   @Override
   public String describe() {
     return "International Student model, containing the name and grade from its superclasses Student and Person, as well as a country.";

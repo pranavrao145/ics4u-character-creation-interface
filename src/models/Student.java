@@ -8,6 +8,11 @@ public class Student extends Person {
     this.grade = grade;
   }
 
+  public Student() {
+    super();
+    this.grade = 9;
+  }
+
   @Override
   public String describe() {
     return "Student model, containing the name from its superclass Person, as well as a grade.";
