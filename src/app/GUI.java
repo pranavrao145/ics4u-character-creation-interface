@@ -1,4 +1,18 @@
+/******************************************************************************
+Program: GUI (Character Creation Interface)
+
+Description: This is GUI for this app. This class contains all of the
+methods to run the GUI of the app, such as to draw and update the GUI,
+as well as to attach listeners.
+
+Author: Pranav Rao
+
+Date: March 1, 2022
+*******************************************************************************/
+
 package app;
+
+// import all necessary Swing components
 
 import java.awt.CardLayout;
 import java.awt.Container;
@@ -18,15 +32,28 @@ import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 
+// import all models from the model package
 import models.InternationalStudent;
 import models.Student;
 import models.Teacher;
 
 public class GUI {
-  private JFrame frame;
-  private Container contentPane;
-  private CardLayout masterLayout;
+  // the following set of fields represent the various GUI components used in
+  // this App. To simplify the identification of components, all components are
+  // named using this convention: componentType_panelNameComponentName
+  // For example, a button to save on the add student panel would be named
+  // btn_addStudentSave
 
+  private JFrame frame;
+  private Container
+      contentPane; // this is a special variable that will store the content
+                   // pane of the frame so it does not need to be re-read every
+                   // time we want to use it
+  private CardLayout masterLayout; // this CardLayout is being stored because it
+                                   // will be essential in switching views
+
+  // rest of the components, grouped by the panel they are on and following the
+  // naming convention above
   private JPanel panel_home;
   private JLabel lbl_homeChoose;
   private JButton btn_homeStudent, btn_homeIntlStudent, btn_homeTeacher;
@@ -53,7 +80,7 @@ public class GUI {
   private JLabel lbl_viewStudentsTitle;
   private JTable table_viewStudents;
   private JButton btn_viewStudentsDelete, btn_viewStudentsCreate,
-      btn_viewStudentsGoHome, btn_viewStudentsEdit;
+      btn_viewStudentsGoHome, btn_viewStudentsEditSelection;
 
   private JButton btn_deleteStudentCancel, btn_deleteStudentDelete;
   private JLabel lbl_deleteStudent;
@@ -84,7 +111,7 @@ public class GUI {
   private JLabel lbl_viewTeachersTitle;
   private JTable table_viewTeachers;
   private JButton btn_viewTeachersCreate, btn_viewTeachersDelete,
-      btn_viewTeachersGoHome, btn_viewTeachersEdit;
+      btn_viewTeachersGoHome, btn_viewTeachersEditSelection;
 
   private JButton btn_deleteTeacherDelete, btn_deleteTeacherCancel;
   private JLabel lbl_deleteTeacher;
@@ -117,23 +144,35 @@ public class GUI {
   private JTable table_viewIntlStudents;
   private JLabel lbl_viewIntlStudentsTitle;
   private JButton btn_viewIntlStudentsCreate, btn_viewIntlStudentsDelete,
-      btn_viewIntlStudentsGoHome, btn_viewIntlStudentsEdit;
+      btn_viewIntlStudentsGoHome, btn_viewIntlStudentsEditSelection;
 
   private JButton btn_deleteIntlStudentCancel, btn_deleteIntlStudentDelete;
   private JLabel lbl_deleteIntlStudent;
   private JComboBox<String> comboBox_deleteIntlStudent;
 
+  // these are special variables that represent the models used to power the
+  // comboBox components in this program
+
   DefaultComboBoxModel<String> subject1Options, subject2Options, countryOptions,
       defaultDeletionOptions, defaultEditOptions;
   DefaultComboBoxModel<Integer> gradeOptions;
 
+  /**
+   * This is a constructor for the GUI. When the GUI is made in the App class,
+   * this function will be called.
+   */
   public GUI() {
-    initializeValues();
-    setupGUI();
-    attachListeners();
-    frame.setVisible(true);
+    initializeValues();     // assigns initial values to some variables declared
+                            // above
+    setupGUI();             // sets up and draws the GUI
+    attachListeners();      // attaches the listeners to various GUI components
+    frame.setVisible(true); // sets the frame to visible so the user can see it
   }
 
+  /**
+   * This function is responsible for setting intial values for some variables
+   * above, specifically the option models for the comboBox components.
+   */
   private void initializeValues() {
     subject1Options = new DefaultComboBoxModel<String>(
         new String[] {"Math", "Business", "Computer Science", "English",
@@ -150,22 +189,46 @@ public class GUI {
         "India", "China", "Russia", "United Kingdom", "France", "Germany",
         "South Africa", "Argentina", "Brazil", "United States of America"});
 
+    // these are empty because deletion options are intially empty and set on
+    // the go
     defaultDeletionOptions = new DefaultComboBoxModel<String>();
     defaultEditOptions = new DefaultComboBoxModel<String>();
   }
 
+  /**
+   * This function is a GUI utility function to temporarily change a given label
+   * to have the new text, and then change it back. Useful for displaying
+   * errors. Overloaded below for a JButton instead of a label.
+   *
+   * @param label - the label to temporarily change
+   * @param newText - the text to change the label to
+   */
   public static void tempChangeLabel(final JLabel label, final String newText) {
-    final String oldText = label.getText();
-    label.setText(newText);
+    final String oldText =
+        label.getText();    // get the current text of the label, which we will
+                            // need to revert the label to later
+    label.setText(newText); // set the label's text to the new text supplied
 
+    // using a SwingWorker object, asynchronously wait for 1 second and then
+    // reset the text of the button the old text
     final SwingWorker<Object, Object> worker =
         new SwingWorker<Object, Object>() {
+          /**
+           * This function sleeps for 1000 milliseconds in a separate thread
+           *
+           * @return - this function returns a generic Object
+           * @throws - this function throws an exception if it fails
+           */
           @Override
           protected Object doInBackground() throws Exception {
             Thread.sleep(1000);
             return null;
           }
 
+          /**
+           * This function will automatically fire when the above background
+           * task is done. It will set the label back to the old text.
+           */
           @Override
           protected void done() {
             label.setText(oldText);
@@ -173,9 +236,19 @@ public class GUI {
           }
         };
 
-    worker.execute();
+    worker.execute(); // this method call executes the SwingWorker and the
+                      // declared functions
   }
 
+  /**
+   * This function is a GUI utility function to temporarily change a given label
+   * to have the new text, and then change it back. Useful for displaying
+   * errors. Overloaded above for a JLabel instead of a button. See above
+   * overload for more detailed documentation.
+   *
+   * @param button - the button to temporarily change
+   * @param newText - the text to change the button to
+   */
   public static void tempChangeLabel(final JButton button,
                                      final String newText) {
     final String oldText = button.getText();
@@ -199,54 +272,110 @@ public class GUI {
     worker.execute();
   }
 
+  /**
+   * This function is a GUI utility function that will take an arbitrary class
+   * and table update the table on the GUI according to the records stored of
+   * that class.
+   *
+   * @param cls - the class which should be accessed to update the given table
+   * @param table - the actual table to update
+   */
   public void updateViewTable(final Class<?> cls, final JTable table) {
+    // get the table model of the given table (needed to manipulate table data)
     final DefaultTableModel tableModel = (DefaultTableModel)table.getModel();
+    // remove all elements from the table (including the title row)
     tableModel.getDataVector().removeAllElements();
 
-    if (cls == Student.class) {
-      tableModel.addRow(new Object[] {"Name", "Grade"});
-      for (final Student student : Engine.getStudents()) {
-        tableModel.addRow(new Object[] {student.getName(), student.getGrade()});
-      }
-    } else if (cls == Teacher.class) {
-      tableModel.addRow(new Object[] {"Name", "Subject 1", "Subject 2"});
-      for (final Teacher teacher : Engine.getTeachers()) {
+    if (cls == Student.class) { // if the given class is the Student class
+      tableModel.addRow(new Object[] {
+          "Name", "Grade"}); // add the title row for student to the table
+      for (final Student student :
+           Engine.getStudents()) { // for each of the students currently stored
         tableModel.addRow(new Object[] {
-            teacher.getName(), teacher.getSubject1(), teacher.getSubject2()});
+            student.getName(),
+            student.getGrade()}); // add a row to the table which contains the
+                                  // information for that particular student
       }
-    } else if (cls == InternationalStudent.class) {
-      tableModel.addRow(new Object[] {"Name", "Grade", "Country"});
+    } else if (cls ==
+               Teacher.class) { // else if the given class is the Teacher class
+      tableModel.addRow(new Object[] {
+          "Name", "Subject 1",
+          "Subject 2"}); // add the title row for teacher to the table
+      for (final Teacher teacher :
+           Engine.getTeachers()) { // for each of the teachers currently stored
+        tableModel.addRow(new Object[] {
+            teacher.getName(), teacher.getSubject1(),
+            teacher
+                .getSubject2()}); // add a row to the table which contains the
+                                  // information for that particular teacher
+      }
+    } else if (cls ==
+               InternationalStudent.class) { // else if the given class is the
+                                             // InternationalStudent class
+      tableModel.addRow(new Object[] {
+          "Name", "Grade", "Country"}); // add the title row for international
+                                        // student to the table
       for (final InternationalStudent internationalStudent :
-           Engine.getInternationalStudents()) {
-        tableModel.addRow(new Object[] {internationalStudent.getName(),
-                                        internationalStudent.getGrade(),
-                                        internationalStudent.getCountry()});
+           Engine.getInternationalStudents()) { // for each of the international
+                                                // students currently stored
+        tableModel.addRow(new Object[] {
+            internationalStudent.getName(), internationalStudent.getGrade(),
+            internationalStudent.getCountry()}); // add a row to the table which
+                                                 // contains the information
+        // for that particular international student
       }
     }
   }
 
+  /**
+   * This function is a GUI utility function that will take an arbitrary class
+   * and comboBox update the comboBox on the GUI according to the records stored
+   * of that class.
+   *
+   * @param cls - the class to access to update the comboBox
+   * @param comboBox - the actual comboBox to update
+   */
   private void updateComboBox(final Class<?> cls,
                               final JComboBox<String> comboBox) {
+    // get the combo box model of the given combo box (needed to manipulate
+    // combo box data)
     final DefaultComboBoxModel<String> comboBoxModel =
         (DefaultComboBoxModel<String>)comboBox.getModel();
+    // remove all elements from the combo box (including the title row)
     comboBoxModel.removeAllElements();
 
-    if (cls == Student.class) {
-      for (final Student student : Engine.getStudents()) {
-        comboBoxModel.addElement(student.getName());
+    if (cls == Student.class) { // if the given class is the Student class
+      for (final Student student :
+           Engine.getStudents()) { // for each of the students currently stored
+        comboBoxModel.addElement(
+            student.getName()); // add the name of the student to the comboBox
       }
-    } else if (cls == Teacher.class) {
-      for (final Teacher teacher : Engine.getTeachers()) {
-        comboBoxModel.addElement(teacher.getName());
+    } else if (cls ==
+               Teacher.class) { // else if the given class is the Teacher class
+      for (final Teacher teacher :
+           Engine.getTeachers()) { // for each of the teachers currently stored
+        comboBoxModel.addElement(
+            teacher.getName()); // add the name of the teacher to the comboBox
       }
-    } else if (cls == InternationalStudent.class) {
-      for (final InternationalStudent internationalstudent :
-           Engine.getInternationalStudents()) {
-        comboBoxModel.addElement(internationalstudent.getName());
+    } else if (cls ==
+               InternationalStudent.class) { // else if the given class is the
+      for (final InternationalStudent internationalStudent :
+           Engine.getInternationalStudents()) { // for each of the international
+                                                // students currently stored
+        comboBoxModel.addElement(
+            internationalStudent
+                .getName()); // add the name of the international student to the
+                             // comboBox
       }
     }
   }
 
+  /**
+   * This function draws the GUI itself (i.e. it initializes the components
+   * above). It will essentially create various panels for each view and put
+   * them all into a CardLayout (masterLayout variable above) so that it is
+   * possible to easily switch between the panels
+   */
   private void setupGUI() {
     frame = new JFrame();
     contentPane = frame.getContentPane();
@@ -359,9 +488,9 @@ public class GUI {
     btn_viewTeachersGoHome.setBounds(323, 9, 105, 22);
     panel_viewTeachers.add(btn_viewTeachersGoHome);
 
-    btn_viewTeachersEdit = new JButton("Edit Teacher");
-    btn_viewTeachersEdit.setBounds(167, 232, 144, 27);
-    panel_viewTeachers.add(btn_viewTeachersEdit);
+    btn_viewTeachersEditSelection = new JButton("Edit Teacher");
+    btn_viewTeachersEditSelection.setBounds(167, 232, 144, 27);
+    panel_viewTeachers.add(btn_viewTeachersEditSelection);
 
     panel_addIntlStudent = new JPanel();
     panel_addIntlStudent.setLayout(null);
@@ -547,9 +676,9 @@ public class GUI {
     btn_viewStudentsGoHome.setBounds(323, 9, 105, 22);
     panel_viewStudents.add(btn_viewStudentsGoHome);
 
-    btn_viewStudentsEdit = new JButton("Edit Student");
-    btn_viewStudentsEdit.setBounds(165, 232, 132, 27);
-    panel_viewStudents.add(btn_viewStudentsEdit);
+    btn_viewStudentsEditSelection = new JButton("Edit Student");
+    btn_viewStudentsEditSelection.setBounds(165, 232, 132, 27);
+    panel_viewStudents.add(btn_viewStudentsEditSelection);
 
     panel_viewIntlStudents = new JPanel();
     panel_viewIntlStudents.setLayout(null);
@@ -579,9 +708,9 @@ public class GUI {
     btn_viewIntlStudentsGoHome.setBounds(323, 9, 105, 22);
     panel_viewIntlStudents.add(btn_viewIntlStudentsGoHome);
 
-    btn_viewIntlStudentsEdit = new JButton("Edit Student");
-    btn_viewIntlStudentsEdit.setBounds(165, 232, 132, 27);
-    panel_viewIntlStudents.add(btn_viewIntlStudentsEdit);
+    btn_viewIntlStudentsEditSelection = new JButton("Edit Student");
+    btn_viewIntlStudentsEditSelection.setBounds(165, 232, 132, 27);
+    panel_viewIntlStudents.add(btn_viewIntlStudentsEditSelection);
 
     panel_home = new JPanel();
     contentPane.add(panel_home, "panel_home");
@@ -732,9 +861,15 @@ public class GUI {
     panel_editIntlStudentSelection.add(lbl_editIntlStudentSelectionCancel);
   }
 
+  /**
+   * This function attaches the appropriate listeners to all components defined
+   * above
+   */
   private void attachListeners() {
     // listeners for the home screen
 
+    // add an action listener to the student button on the home page to go to
+    // the view students panel
     btn_homeStudent.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
@@ -742,6 +877,8 @@ public class GUI {
       }
     });
 
+    // add an action listener to the teacher button on the home page to go to
+    // the view teachers panel
     btn_homeTeacher.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
@@ -749,6 +886,8 @@ public class GUI {
       }
     });
 
+    // add an action listener to the international student button on the home
+    // page to go to the view international students panel
     btn_homeIntlStudent.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
@@ -756,8 +895,14 @@ public class GUI {
       }
     });
 
+    /*************************************************************************
+     * STUDENT LISTENERS
+     *************************************************************************/
+
     // listners for the view students screen
 
+    // add an action listener to the Go Home button on the view students
+    // panel which will go back to the home screen on click
     btn_viewStudentsGoHome.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
@@ -765,6 +910,8 @@ public class GUI {
       }
     });
 
+    // add an action listener to the Create button on the view students
+    // panel which will go to the create student screen on click
     btn_viewStudentsCreate.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
@@ -772,26 +919,36 @@ public class GUI {
       }
     });
 
-    btn_viewStudentsEdit.addActionListener(new ActionListener() {
+    // add an action listener to the Edit button on the view students
+    // panel which will go to the edit student selection screen on click
+    btn_viewStudentsEditSelection.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
         // if there are no students
         if (Engine.getStudents().size() == 0) {
-          tempChangeLabel(btn_viewStudentsEdit, "No students yet!");
-        } else {
+          tempChangeLabel(btn_viewStudentsEditSelection,
+                          "No students yet!"); // display an error message
+        } else { // if there are students to display
+          // update the student selection combobox and switch to the edit
+          // student selection screen
           updateComboBox(Student.class, comboBox_editStudentSelection);
           masterLayout.show(contentPane, "panel_editStudentSelection");
         }
       }
     });
 
+    // add an action listener to the Delete button on the view students
+    // panel which will go to the delete student screen on click
     btn_viewStudentsDelete.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
         // if there are no students
         if (Engine.getStudents().size() == 0) {
-          tempChangeLabel(btn_viewStudentsDelete, "No students yet!");
-        } else {
+          tempChangeLabel(btn_viewStudentsDelete,
+                          "No students yet!"); // display an error message
+        } else { // if there are students to display
+          // update the student selection combobox and switch to the delete
+          // student selection screen
           updateComboBox(Student.class, comboBox_deleteStudent);
           masterLayout.show(contentPane, "panel_deleteStudent");
         }
@@ -800,6 +957,8 @@ public class GUI {
 
     // listeners for the add student screen
 
+    // add an action listener to the Cancel button on the add student
+    // panel which will go back to the view student screen on click
     btn_addStudentCancel.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
@@ -807,15 +966,23 @@ public class GUI {
       }
     });
 
+    // add an action listener to the Cancel button on the add student
+    // panel which will save a new student with the current entered information
     btn_addStudentSave.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
+        // if the text field for the name on the add student screen is empty
+        // when the save button is clicked, display an error message and prevent
+        // saving
         if (textField_addStudentName.getText().equals("")) {
           tempChangeLabel(lbl_addStudentTitle, "Please enter a name!");
-        } else {
+        } else { // if there is a name (and all info is valid), add a new
+                 // student with the given information
           Engine.getStudents().add(
               new Student(textField_addStudentName.getText(),
                           (int)comboBox_addStudentGrade.getSelectedItem()));
+          // update the students table for with the new students and go back to
+          // the students view panel
           updateViewTable(Student.class, table_viewStudents);
           masterLayout.show(contentPane, "panel_viewStudents");
         }
@@ -824,19 +991,30 @@ public class GUI {
 
     // listeners for the student edit selection screen
 
+    // add an action listener to the Edit button on the edit student selection
+    // panel which will go to the edit panel with the info filled in for the
+    // selected student
     btn_editStudentSelectionEdit.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
+        // get the index for the currently selected student (the student to
+        // edit)
         currentlyEditingStudent =
             comboBox_editStudentSelection.getSelectedIndex();
+        // get the student from the current selection list based on the index
+        // and store it in a global variable for later use
         final Student student =
             Engine.getStudents().get(currentlyEditingStudent);
+        // fill in the edit fields with the existent information
         textField_editStudentName.setText(student.getName());
         comboBox_editStudentGrade.setSelectedItem((Object)student.getGrade());
+        // go to the edit student panel with the newly filled in information
         masterLayout.show(contentPane, "panel_editStudent");
       }
     });
 
+    // add an action listener to the Cancel button on the edit student selection
+    // panel which will go back to the view students panel
     btn_editStudentSelectionCancel.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
@@ -846,6 +1024,8 @@ public class GUI {
 
     // listeners for the edit student screen
 
+    // add an action listener to the Cancel button on the edit student
+    // panel which will go back to the view students panel
     btn_editStudentCancel.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
@@ -853,25 +1033,45 @@ public class GUI {
       }
     });
 
+    // add an action listener to the Save button on the edit student
+    // panel which edit the current student with the given information and
+    // return to the view students screen
     btn_editStudentSave.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
-        if (textField_editStudentName.getText().equals("")) {
-          tempChangeLabel(lbl_editStudentTitle, "Please enter a name!");
-        } else {
-          final Student currentStudent =
-              Engine.getStudents().get(currentlyEditingStudent);
-          currentStudent.setName(textField_editStudentName.getText());
+        if (textField_editStudentName.getText().equals(
+                "")) { // if there is no name in the name field
+          tempChangeLabel(
+              lbl_editStudentTitle,
+              "Please enter a name!"); // display an error message to let the
+                                       // user know they must enter a name
+        } else {                       // if there is a name supplied
+          final Student currentStudent = Engine.getStudents().get(
+              currentlyEditingStudent); // get the current student using the
+                                        // currentlyEditingStudent variable set
+                                        // in the edit student selection screen
+          currentStudent.setName(
+              textField_editStudentName
+                  .getText()); // change the name of the current student to the
+                               // new name
           currentStudent.setGrade(
-              (int)comboBox_editStudentGrade.getSelectedItem());
-          updateViewTable(Student.class, table_viewStudents);
-          masterLayout.show(contentPane, "panel_viewStudents");
+              (int)comboBox_editStudentGrade
+                  .getSelectedItem()); // change the grade of the current
+                                       // student to the new grade
+          updateViewTable(Student.class,
+                          table_viewStudents); // update the students view table
+                                               // with the new information
+          masterLayout.show(
+              contentPane,
+              "panel_viewStudents"); // go back to the view students panel
         }
       }
     });
 
     // listeners for the delete student screen
 
+    // add an action listener to the Cancel button on the delete student
+    // panel which will go back to the view students panel
     btn_deleteStudentCancel.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
@@ -879,15 +1079,28 @@ public class GUI {
       }
     });
 
+    // add an action listener to the Delete button on the delete student
+    // panel which delete the selected student
     btn_deleteStudentDelete.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
-        final int index = comboBox_deleteStudent.getSelectedIndex();
-        Engine.getStudents().remove(Engine.getStudents().get(index));
+        final int index =
+            comboBox_deleteStudent
+                .getSelectedIndex(); // get the index of the selected student
+        Engine.getStudents().remove(Engine.getStudents().get(
+            index)); // remove the selected student from the students array
+        // update the students table and go back to the view students panel
         updateViewTable(Student.class, table_viewStudents);
         masterLayout.show(contentPane, "panel_viewStudents");
       }
     });
+
+    /*************************************************************************
+     * TEACHER LISTENERS - these listeners are NOT COMMENTED because they work
+     * the exact same way as the student listeners, with minor change to
+     * variables and what is being stored. Refer to student listeners for
+     * documentation on how these methods work.
+     *************************************************************************/
 
     // listners for the view teachers screen
 
@@ -905,13 +1118,14 @@ public class GUI {
       }
     });
 
-    btn_viewTeachersEdit.addActionListener(new ActionListener() {
+    btn_viewTeachersEditSelection.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
-        // if there are no teachers
+
         if (Engine.getTeachers().size() == 0) {
-          tempChangeLabel(btn_viewTeachersEdit, "No teachers yet!");
+          tempChangeLabel(btn_viewTeachersEditSelection, "No teachers yet!");
         } else {
+
           updateComboBox(Teacher.class, comboBox_editTeacherSelection);
           masterLayout.show(contentPane, "panel_editTeacherSelection");
         }
@@ -921,10 +1135,11 @@ public class GUI {
     btn_viewTeachersDelete.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
-        // if there are no teachers
+
         if (Engine.getTeachers().size() == 0) {
           tempChangeLabel(btn_viewTeachersDelete, "No teachers yet!");
         } else {
+
           updateComboBox(Teacher.class, comboBox_deleteTeacher);
           masterLayout.show(contentPane, "panel_deleteTeacher");
         }
@@ -943,13 +1158,16 @@ public class GUI {
     btn_addTeacherSave.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
+
         if (textField_addTeacherName.getText().equals("")) {
           tempChangeLabel(lbl_addTeacherTitle, "Please enter a name!");
         } else {
+
           Engine.getTeachers().add(new Teacher(
               textField_addTeacherName.getText(),
               (String)comboBox_addTeacherSubject1.getSelectedItem(),
               (String)comboBox_addTeacherSubject2.getSelectedItem()));
+
           updateViewTable(Teacher.class, table_viewTeachers);
           masterLayout.show(contentPane, "panel_viewTeachers");
         }
@@ -961,15 +1179,18 @@ public class GUI {
     btn_editTeacherSelectionEdit.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
+
         currentlyEditingTeacher =
             comboBox_editTeacherSelection.getSelectedIndex();
         final Teacher teacher =
             Engine.getTeachers().get(currentlyEditingTeacher);
+
         textField_editTeacherName.setText(teacher.getName());
         comboBox_editTeacherSubject1.setSelectedItem(
             (Object)teacher.getSubject1());
         comboBox_editTeacherSubject1.setSelectedItem(
             (Object)teacher.getSubject2());
+
         masterLayout.show(contentPane, "panel_editTeacher");
       }
     });
@@ -995,15 +1216,20 @@ public class GUI {
       public void actionPerformed(final ActionEvent e) {
         if (textField_editTeacherName.getText().equals("")) {
           tempChangeLabel(lbl_editTeacherTitle, "Please enter a name!");
+
         } else {
           final Teacher currentTeacher =
               Engine.getTeachers().get(currentlyEditingTeacher);
+
           currentTeacher.setName(textField_editTeacherName.getText());
           currentTeacher.setSubject1(
               (String)comboBox_editTeacherSubject1.getSelectedItem());
+
           currentTeacher.setSubject2(
               (String)comboBox_editTeacherSubject2.getSelectedItem());
+
           updateViewTable(Teacher.class, table_viewTeachers);
+
           masterLayout.show(contentPane, "panel_viewTeachers");
         }
       }
@@ -1023,10 +1249,18 @@ public class GUI {
       public void actionPerformed(final ActionEvent e) {
         final int index = comboBox_deleteTeacher.getSelectedIndex();
         Engine.getTeachers().remove(Engine.getTeachers().get(index));
+
         updateViewTable(Teacher.class, table_viewTeachers);
         masterLayout.show(contentPane, "panel_viewTeachers");
       }
     });
+
+    /*************************************************************************
+     * INTERNATIONAL STUDENT LISTENERS - these listeners are NOT COMMENTED
+     * because they work the exact same way as the student listeners, with minor
+     * change to variables and what is being stored. Refer to student listeners
+     * for documentation on how these methods work.
+     *************************************************************************/
 
     // listeners for the view international students screen
 
@@ -1044,12 +1278,13 @@ public class GUI {
       }
     });
 
-    btn_viewIntlStudentsEdit.addActionListener(new ActionListener() {
+    btn_viewIntlStudentsEditSelection.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(final ActionEvent e) {
         // if there are no international students
         if (Engine.getInternationalStudents().size() == 0) {
-          tempChangeLabel(btn_viewIntlStudentsEdit, "No students yet!");
+          tempChangeLabel(btn_viewIntlStudentsEditSelection,
+                          "No students yet!");
         } else {
           updateComboBox(InternationalStudent.class,
                          comboBox_editIntlStudentSelection);
