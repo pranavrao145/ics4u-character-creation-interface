@@ -159,7 +159,7 @@ public class GUI {
 
   /**
    * This is a constructor for the GUI. When the GUI is made in the App class,
-   * this function will be called.
+   * this method will be called.
    */
   public GUI() {
     initializeValues();     // assigns initial values to some variables declared
@@ -170,7 +170,7 @@ public class GUI {
   }
 
   /**
-   * This function is responsible for setting intial values for some variables
+   * This method is responsible for setting intial values for some variables
    * above, specifically the option models for the comboBox components.
    */
   private void initializeValues() {
@@ -196,7 +196,7 @@ public class GUI {
   }
 
   /**
-   * This function is a GUI utility function to temporarily change a given label
+   * This method is a GUI utility method to temporarily change a given label
    * to have the new text, and then change it back. Useful for displaying
    * errors. Overloaded below for a JButton instead of a label.
    *
@@ -214,10 +214,10 @@ public class GUI {
     final SwingWorker<Object, Object> worker =
         new SwingWorker<Object, Object>() {
           /**
-           * This function sleeps for 1000 milliseconds in a separate thread
+           * This method sleeps for 1000 milliseconds in a separate thread
            *
-           * @return - this function returns a generic Object
-           * @throws - this function throws an exception if it fails
+           * @return - this method returns a generic Object
+           * @throws - this method throws an exception if it fails
            */
           @Override
           protected Object doInBackground() throws Exception {
@@ -226,7 +226,7 @@ public class GUI {
           }
 
           /**
-           * This function will automatically fire when the above background
+           * This method will automatically fire when the above background
            * task is done. It will set the label back to the old text.
            */
           @Override
@@ -237,11 +237,11 @@ public class GUI {
         };
 
     worker.execute(); // this method call executes the SwingWorker and the
-                      // declared functions
+                      // declared methods
   }
 
   /**
-   * This function is a GUI utility function to temporarily change a given label
+   * This method is a GUI utility method to temporarily change a given label
    * to have the new text, and then change it back. Useful for displaying
    * errors. Overloaded above for a JLabel instead of a button. See above
    * overload for more detailed documentation.
@@ -273,7 +273,7 @@ public class GUI {
   }
 
   /**
-   * This function is a GUI utility function that will take an arbitrary class
+   * This method is a GUI utility method that will take an arbitrary class
    * and table update the table on the GUI according to the records stored of
    * that class.
    *
@@ -328,7 +328,7 @@ public class GUI {
   }
 
   /**
-   * This function is a GUI utility function that will take an arbitrary class
+   * This method is a GUI utility method that will take an arbitrary class
    * and comboBox update the comboBox on the GUI according to the records stored
    * of that class.
    *
@@ -371,7 +371,7 @@ public class GUI {
   }
 
   /**
-   * This function draws the GUI itself (i.e. it initializes the components
+   * This method draws the GUI itself (i.e. it initializes the components
    * above). It will essentially create various panels for each view and put
    * them all into a CardLayout (masterLayout variable above) so that it is
    * possible to easily switch between the panels
@@ -862,7 +862,7 @@ public class GUI {
   }
 
   /**
-   * This function attaches the appropriate listeners to all components defined
+   * This method attaches the appropriate listeners to all components defined
    * above
    */
   private void attachListeners() {

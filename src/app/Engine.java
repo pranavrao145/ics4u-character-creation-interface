@@ -39,7 +39,7 @@ public class Engine {
   private static GUI gui;
 
   /**
-   * This function is responsible for initializing the application. It will
+   * This method is responsible for initializing the application. It will
    * initialize all the variables above with appropriate default values, read
    * the necessary data from the log files, then update all the tables on the
    * GUI to reflect the newly read information.
@@ -54,7 +54,7 @@ public class Engine {
     teachers = new ArrayList<Teacher>();
     internationalStudents = new ArrayList<InternationalStudent>();
 
-    // set the gui of this engine to the GUI passed to the function
+    // set the gui of this engine to the GUI passed to the method
     gui = currentGUI;
 
     readDataFromFile(); // read the data in the log files and register them with
@@ -70,8 +70,8 @@ public class Engine {
   }
 
   /**
-   * This function will save the data currently in the ArrayLists of this class
-   * to the log files in data/. This function will be automatically called just
+   * This method will save the data currently in the ArrayLists of this class
+   * to the log files in data/. This method will be automatically called just
    * before the window closes.
    */
   public static void saveDataToFile() {
@@ -114,7 +114,7 @@ public class Engine {
       // separated list of the student's values (name, grade)
       for (final Student student : students) {
         final String content =
-            String.format("%s,%d", student.getName(), student.getGrade());
+            String.format("%s;%d", student.getName(), student.getGrade());
 
         studentWriter.println(content);
       }
@@ -123,7 +123,7 @@ public class Engine {
       // separated list of the teacher's values (name, subject 1, subject 2)
       for (final Teacher teacher : teachers) {
         final String content =
-            String.format("%s,%s,%s", teacher.getName(), teacher.getSubject1(),
+            String.format("%s;%s;%s", teacher.getName(), teacher.getSubject1(),
                           teacher.getSubject2());
 
         teacherWriter.println(content);
@@ -135,7 +135,7 @@ public class Engine {
       for (final InternationalStudent internationalStudent :
            internationalStudents) {
         final String content = String.format(
-            "%s,%d,%s", internationalStudent.getName(),
+            "%s;%d;%s", internationalStudent.getName(),
             internationalStudent.getGrade(), internationalStudent.getCountry());
 
         internationalStudentWriter.println(content);
@@ -154,9 +154,9 @@ public class Engine {
   }
 
   /**
-   *  This function will take read the data currently stored in the log files
+   *  This method will take read the data currently stored in the log files
    *  and update the arrays of students, teachers, and international students
-   *  with the information that it gets. This function will be called upon the
+   *  with the information that it gets. This method will be called upon the
    *  initialization of the program, allowing for data persistence.
    */
   public static void readDataFromFile() {
@@ -181,7 +181,7 @@ public class Engine {
           // split the current line by commas (the character by which the info
           // is delimited) and store it in an ArrayList
           final ArrayList<String> currentStudentInfo =
-              new ArrayList<String>(Arrays.asList(line.split(",")));
+              new ArrayList<String>(Arrays.asList(line.split(";")));
           // add the information gathered and stored in the ArrayList to the
           // master ArrayList containing all the students
           students.add(
@@ -208,7 +208,7 @@ public class Engine {
           // split the current line by commas (the character by which the info
           // is delimited) and store it in an ArrayList
           final ArrayList<String> currentTeacherInfo =
-              new ArrayList<String>(Arrays.asList(line.split(",")));
+              new ArrayList<String>(Arrays.asList(line.split(";")));
           // add the information gathered and stored in the ArrayList to the
           // master ArrayList containing all the teachers
           teachers.add(new Teacher(currentTeacherInfo.get(0),
@@ -236,7 +236,7 @@ public class Engine {
           // split the current line by commas (the character by which the info
           // is delimited) and store it in an ArrayList
           final ArrayList<String> currentInternationalStudentInfo =
-              new ArrayList<String>(Arrays.asList(line.split(",")));
+              new ArrayList<String>(Arrays.asList(line.split("n")));
           // add the information gathered and stored in the ArrayList to the
           // master ArrayList containing all the international students
           internationalStudents.add(new InternationalStudent(
@@ -261,7 +261,7 @@ public class Engine {
   }
 
   /**
-   * This function is the entry point for this class. It will be called by the
+   * This method is the entry point for this class. It will be called by the
    * main class to start the entire program
    *
    * @param currentGUI - represents the current GUI associated with this Engine.
