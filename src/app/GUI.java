@@ -56,7 +56,8 @@ public class GUI {
   // naming convention above
   private JPanel panel_home;
   private JLabel lbl_homeChoose;
-  private JButton btn_homeStudent, btn_homeIntlStudent, btn_homeTeacher;
+  private JButton btn_homeStudent, btn_homeIntlStudent, btn_homeTeacher,
+      btn_homeQuit;
 
   private JPanel panel_addStudent, panel_editStudent,
       panel_editStudentSelection, panel_viewStudents, panel_deleteStudent;
@@ -383,7 +384,9 @@ public class GUI {
 
     frame.setResizable(false);
     frame.setBounds(100, 100, 450, 300);
-    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    frame.setDefaultCloseOperation(
+        JFrame.DO_NOTHING_ON_CLOSE); // overriding default close behaviour so
+                                     // custom close methods can run
     contentPane.setLayout(masterLayout);
 
     panel_editStudent = new JPanel();
@@ -732,6 +735,10 @@ public class GUI {
     btn_homeTeacher.setBounds(303, 115, 125, 27);
     panel_home.add(btn_homeTeacher);
 
+    btn_homeQuit = new JButton("Quit");
+    btn_homeQuit.setBounds(159, 217, 125, 27);
+    panel_home.add(btn_homeQuit);
+
     masterLayout.show(contentPane, "panel_home");
 
     panel_deleteStudent = new JPanel();
@@ -866,6 +873,10 @@ public class GUI {
    * above
    */
   private void attachListeners() {
+    /*************************************************************************
+     * GENERAL LISTENERS
+     *************************************************************************/
+
     // listeners for the home screen
 
     // add an action listener to the student button on the home page to go to
@@ -892,6 +903,28 @@ public class GUI {
       @Override
       public void actionPerformed(final ActionEvent e) {
         masterLayout.show(contentPane, "panel_viewIntlStudents");
+      }
+    });
+
+    // add an action listener to do actions when the quit button is clicked
+    btn_homeQuit.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        Engine.saveDataToFile();
+        frame.dispose();
+        System.exit(0);
+      }
+    });
+
+    // listener for window events
+
+    // add an action listener to do actions just before the window closes
+    frame.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(final WindowEvent e) {
+        Engine.saveDataToFile();
+        frame.dispose();
+        System.exit(0);
       }
     });
 
@@ -1377,7 +1410,7 @@ public class GUI {
               Engine.getInternationalStudents().get(
                   currentlyEditingInternationalStudent);
           currentInternationalStudent.setName(
-              textField_editStudentName.getText());
+              textField_editIntlStudentName.getText());
           currentInternationalStudent.setGrade(
               (int)comboBox_addIntlStudentGrade.getSelectedItem());
           currentInternationalStudent.setCountry(
@@ -1405,16 +1438,6 @@ public class GUI {
             Engine.getInternationalStudents().get(index));
         updateViewTable(InternationalStudent.class, table_viewIntlStudents);
         masterLayout.show(contentPane, "panel_viewIntlStudents");
-      }
-    });
-
-    // listener for when the window closes
-    frame.addWindowListener(new WindowAdapter() {
-      @Override
-      public void windowClosing(final WindowEvent e) {
-        Engine.saveDataToFile();
-        frame.dispose();
-        System.exit(0);
       }
     });
   }

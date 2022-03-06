@@ -236,7 +236,7 @@ public class Engine {
           // split the current line by commas (the character by which the info
           // is delimited) and store it in an ArrayList
           final ArrayList<String> currentInternationalStudentInfo =
-              new ArrayList<String>(Arrays.asList(line.split("n")));
+              new ArrayList<String>(Arrays.asList(line.split(";")));
           // add the information gathered and stored in the ArrayList to the
           // master ArrayList containing all the international students
           internationalStudents.add(new InternationalStudent(

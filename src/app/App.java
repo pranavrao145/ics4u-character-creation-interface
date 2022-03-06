@@ -20,10 +20,10 @@ models/Student.java:25 and models/Student.java:35
 - Override: Description methods for all models, and all action listeners.
 Example: models/Student.java:47
 - Array of Records: ArrayList used instead, app/Engine.java:33
-- Creation of Objects: Used for all models. Example: app/GUI.java:982
+- Creation of Objects: Used for all models. Example: app/GUI.java:1015
 - Usage of Objects and Attributes: Getters and setters used everywhere, such as
-in the models' edit methods. Example: Getter at app/GUI.java:1009 and setter
-at app/GUI.java:1053
+in the models' edit methods. Example: Getter at app/GUI.java:1042 and setter
+at app/GUI.java:1086
 *******************************************************************************/
 
 package app; // declare this class as part of the app package

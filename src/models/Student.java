@@ -15,7 +15,7 @@ public class Student extends Person {
   private int grade; // declare grade attribute
 
   /**
-   * Constructor function - this function is called when an object of this class
+   * Constructor method - this method is called when an object of this class
    * is made. This overload of the constructor takes a parameter for each of the
    * available attributes.
    *
@@ -28,7 +28,7 @@ public class Student extends Person {
   }
 
   /**
-   * Constructor function - this function is called when an object of this class
+   * Constructor method - this method is called when an object of this class
    * is made. This overload of the constructor takes no parameters and sets the
    * default values for each attribute
    */
